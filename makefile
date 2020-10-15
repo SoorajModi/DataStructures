@@ -5,11 +5,11 @@ BIN = ./bin/
 SRC = ./src/
 LIBS = .L./lib
 
-program:
-	$(CC) $(FLAGS) $(SRC)main.c -Iinclude -o $(BIN)program
+LinkedList:
+	$(CC) $(FLAGS) $(SRC)LinkedListTest.c -Iinclude -o $(BIN)program
 
 run:
-	$(BIN)program data.txt
+	$(BIN)program $(SRC)data.txt
 
 clean:
 	rm $(BIN)*
@@ -18,4 +18,4 @@ cls:
 	clear
 
 sayHi:
-	@echo 'This is Assignment 2 for CIS 2520 made by Sooraj Modi'
+	@echo 'These are Data Structure APIs made by Sooraj Modi'

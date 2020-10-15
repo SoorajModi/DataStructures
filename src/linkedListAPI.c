@@ -1,30 +1,27 @@
 /*
-This is the library for CIS2520, CIS 2520 made by Sooraj Modi
+This is the library for a Linked List, made by Sooraj Modi
  */
 #include "LinkedListAPI.h"
-#include "Stack.h"
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 /************************
         FUNCTIONS
 ************************/
 
-List *initializeList(void (*printFunction)(void *toBePrinted), void (*deleteFucntion)(void *toBeDeleted), int (*compareFunction)(const void *first, const void *second)){
-    List *list;
-    list = malloc(sizeof(List));
+List* initializeList(void (*printFunction)(void* toBePrinted), void (*deleteFucntion)(void* toBeDeleted), int (*compareFunction)(const void* first, const void* second)){
+    List* list = malloc(sizeof(List));
 
     list->head = NULL;
     list->tail = NULL;
+    list->length = 0
+    list->print = printFucntion;
+    list->delete = deleteFunction;
+    list->compare = compareFunction;
 
     return list;
 }
 
-Node *initializeNode(void *data){
-    Node *node;
-    node = malloc(sizeof(Node));
+Node* initializeNode(void* data){
+    Node* node = malloc(sizeof(Node));
 
     node->data = data;
     node->next = NULL;
@@ -33,56 +30,41 @@ Node *initializeNode(void *data){
     return node;
 }
 
-void insertFront(List *list, void *toBeAdded) {
-    Node * toAdd = (Node *) toBeAdded;
-    Node * temp;
+void insertFront(List* list, void* toBeAdded) {
+    Node* toAdd = (Node*)toBeAdded;
+    Node* head = list->head;
 
-    if(list->head == NULL){
+    if (head == NULL) {
         list->head = toAdd;
         list->tail = toAdd;
-    } else{
-        temp = list->head;
-        list->head = toAdd;
-	toAdd->next = temp;
-	toAdd->previous = NULL;
-	temp->previous = toAdd;
-    }
-}
-
-void insertBack(List *list, void *toBeAdded){
-    Node * toAdd = (Node *) toBeAdded;
-    Node * last = list->tail;
-
-    if(list->head == NULL){
-        list->head = toAdd;
-        list->tail = toAdd;
-    } else{
-     	last->next = toAdd;
-	toAdd->previous = last;
-	toAdd->next = NULL;
-	list->tail = toAdd;
-    }
-}
-
-void deleteList(List *list){
-  int counter = 0;
-  Node * temp;
-  while(counter == 0){
-    Stack *b = ((Stack *)list->head->data);
-    b = NULL;
-    free(b);
-    if(list->head->next == NULL){
-      free(list->head);
-      list->head = NULL;
-      counter = 1;
     } else {
-      temp = list->head->next;
-      list->head = temp;
-      free(list->head->previous);
-      list->head->previous = NULL;
+	      toAdd->next = head;
+	      toAdd->previous = NULL;
+	      head->previous = toAdd;
+        list->head = toAdd;
+        list->length++;
     }
-  }
 }
+
+void insertBack(List* list, void* toBeAdded) {
+    Node* toAdd = (Node *)toBeAdded;
+    Node* tail = list->tail;
+
+    if (tail == NULL) {
+        list->head = toAdd;
+        list->tail = toAdd;
+    } else {
+	      toAdd->previous = tail;
+	      toAdd->next = NULL;
+        tail->next = toAdd;
+	      list->tail = toAdd;
+        list->length++;
+    }
+}
+
+void deleteList(List *list) {
+}
+
 //TO DO: CLEAN UP CODE
 void insertSorted(List *list, void *toBeAdded){
   /*   Node * toAdd = initializeNode(toBeAdded);
@@ -141,74 +123,69 @@ void insertSorted(List *list, void *toBeAdded){
 }
 
 int deleteNodeFromList(List *list, void *toBeDeleted){
-    //Check if the list is empty
-    if(list->head == NULL){
-        return EXIT_FAILURE;
+  if (list == NULL || toBeDeleted == NULL){
+    return NULL;
+  }
+
+  Node* tmp = list->head;
+
+  while(tmp != NULL){
+    if (list->compare(toBeDeleted, tmp->data) == 0){
+      //Unlink the node
+      Node* delNode = tmp;
+
+      if (tmp->previous != NULL){
+        tmp->previous->next = delNode->next;
+      }else{
+        list->head = delNode->next;
+      }
+
+      if (tmp->next != NULL){
+        tmp->next->previous = delNode->previous;
+      }else{
+        list->tail = delNode->previous;
+      }
+
+      void* data = delNode->data;
+      free(delNode);
+
+      (list->length)--;
+
+      return data;
+
+    }else{
+      tmp = tmp->next;
     }
-
-    Node *temp = list->head;
-    Node *delete = (Node *)toBeDeleted;
-
-    //Check the head
-    if(compare(temp, delete) == 0){
-      list->head = temp->next;
-      return EXIT_SUCCESS;
-    }
-
-    //Step through the list to check for a match
-    while(temp->next != NULL){
-        if(compare(temp, delete) == 0) {
-	  (delete->previous)->next = delete->next;
-	  (delete->next)->previous = delete->previous;
-	    deleteListNode(delete);
-            return EXIT_SUCCESS;
-        } else{
-            temp = temp->next;
-        }
-    }
-
-    //test for the tail
-    if(compare(temp, delete) == 0) {
-      (delete->previous)->next = NULL;
-        deleteListNode(delete);
-        return EXIT_SUCCESS;
-    }
-
-    return EXIT_FAILURE;
-}
-
-void *getFromFront(List *list){
-  if((list != NULL) && (list->head != NULL)){
-        return list->head;
-    }
+  }
 
   return NULL;
 }
 
+void* getFromFront(List *list){
+  if((list == NULL) && (list->head == NULL)) {
+        return NULL;
+  }
 
-void *getFromBack(List *list){
-  if((list != NULL) && (list->head != NULL)){
-        return list->tail;
+  return list->head;
+}
+
+
+void* getFromBack(List *list){
+  if((list != NULL) && (list->head != NULL)) {
+        return NULL;
     }
 
-    return NULL;     //TODO: FIX SO IT RETURNS NULL
+    return list->tail;
 }
 
 void printForward(List *list){
-  Node * temp = list->head;
+  if((list == NULL) || (list->head == NULL)) return;
+  Node* node = list->head;
 
-  if(temp == NULL){
-    printf("List is Empty\n");
-    return;
+  while(node->next != NULL){
+    printf("%s ", list->print(node));
+    node = node->next;
   }
-
-  while(temp->next != NULL){
-    printInt(temp);
-    printf("\n");
-    temp = temp->next;
-  }
-
-  printInt(temp);
 }
 
 void printBackwards(List *list){
@@ -230,38 +207,27 @@ void printBackwards(List *list){
 }
 
 void deleteListNode(void *toBeDeleted){
-  //deleteAndFreeADT();
-  //deleteAndFreeNode();
-  //cleanPointers();
   Node * temp = (Node *)toBeDeleted;
-  /*
-  if((temp->next != NULL) && (temp->previous != NULL)){
-      (temp->previous)->next = (temp->next);
-      (temp->next)->previous = (temp->previous);
-  } else if((temp->next == NULL) && (temp->previous != NULL)){
-        (temp->previous)->next = NULL;
-  } else if((temp->next != NULL) && (temp->previous == NULL)){
-        (temp->next)->previous = NULL;
-  }
-  */
   temp->data = NULL;
   temp->next = NULL;
   temp->previous = NULL;
 }
 
-int compare(const void *first, const void *second){
-    if(first > second){
-        return 1;
-    } else if (second > first) {
-        return -1;
-    } else if (first == second) {
-        return 0;
+void clearList(List* list){
+    if((list == NULL) || ((list->head == NULL) && (list->tail == NULL))) return;
+
+    while(list->head != NULL){
+        Node* temp = list->head;
+        list->deleteData(temp->data);
+        list->head = temp->next;
+        free(temp);
     }
 
-   return 100; //TODO: FIX SO IT RETURNS NULL
+    list->length = 0;
+    list->head = NULL;
+    list->tail = NULL;
 }
 
-void printNode(void *toBePrinted){
-    //DUMMY FUNCTION
-    //SEE PRINTCAR() IN MAIN>C
+int getLength(List* list) {
+  return list->length;
 }
