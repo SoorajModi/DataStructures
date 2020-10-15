@@ -17,7 +17,7 @@ typedef struct node {
 /**
  * Struct for a Linked List. Contains a pointer to the front and end of the list and to helper functions.
  **/
-typedef struct listHead {
+typedef struct list {
     Node* head;
     Node* tail;
     int length;
