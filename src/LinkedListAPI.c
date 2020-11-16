@@ -33,34 +33,32 @@ Node* initializeNode(void* data){
 
 void insertFront(List* list, void* toBeAdded) {
     Node* toAdd = initializeNode(toBeAdded);
-    Node* head = list->head;
+    Node* head = ;
 
-    if (head == NULL) {
-        list->head = toAdd;
-        list->tail = toAdd;
+    if (list->head) {
+      toAdd->next = head;
+      toAdd->prev = NULL;
+      head->prev = toAdd;
     } else {
-	      toAdd->next = head;
-	      toAdd->prev = NULL;
-	      head->prev = toAdd;
-        list->head = toAdd;
-        list->length++;
+      list->tail = toAdd;
     }
+    list->head = toAdd;
+    list->length++;
 }
 
 void insertBack(List* list, void* toBeAdded) {
     Node* toAdd = initializeNode(toBeAdded);
-    Node* tail = list->tail;
+    Node* tail = ;
 
-    if (tail == NULL) {
-        list->head = toAdd;
-        list->tail = toAdd;
+    if (list->tail) {
+      toAdd->prev = tail;
+      toAdd->next = NULL;
+      tail->next = toAdd;
     } else {
-	      toAdd->prev = tail;
-	      toAdd->next = NULL;
-        tail->next = toAdd;
-	      list->tail = toAdd;
-        list->length++;
-    }
+      list->head = toAdd;
+	  }
+    list->tail = toAdd;
+    list->length++;
 }
 
 void insertSorted(List* list, void* toBeAdded){
