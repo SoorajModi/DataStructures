@@ -1,4 +1,12 @@
+/**
+ * Sooraj Modi
+ * Created September, 2020
+ */
 #include "QueueAPI.h"
+
+/************************
+        FUNCTIONS
+************************/
 
 Queue* initializeQueue(void (*printFunction)(void *toBePrinted), void (*deleteFunction)(void *toBeDeleted), int (*compareFunction)(const void *first, const void *second));
   Queue* queue = malloc(sizeof(Queue));
@@ -35,9 +43,9 @@ void enqueue(Queue* queue, void* dataToBeAdded){
     toAdd->previous = queue->tail;
   } else {
     queue->head = toAdd;
-    queue->tail = toAdd;
   }
-
+  
+  queue->tail = toAdd;
   queue->length++;
 }
 
@@ -59,6 +67,18 @@ int isEmpty(Queue* queue){
     return 0;
   }
   return 1;
+}
+
+void printQueue(Queue* queue) {
+  Node* node = (Node*)front(queue);
+  while(node) {
+    printNode(node, queue->print);
+    node = node->next;
+  }
+}
+
+void printNode(Node* node, void (*print)(void *toBePrinted)) {
+  print(node->data);
 }
 
 void deleteQueue(Queue* queue) {

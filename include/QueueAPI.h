@@ -6,7 +6,8 @@
 #include <string.h>
 
 /**
- * Node for the Queue
+ * Node for the Queue.
+ * Contains a pointer to data, and pointers to the next and previous node.
  **/
 typedef struct node {
     void* data;
@@ -15,7 +16,8 @@ typedef struct node {
 } Node;
 
 /**
- * Struct for a Queue. Contains a pointer to the front and end of the Queue and to helper functions.
+ * Struct for a Queue.
+ * Contains a pointer to the front and end of the Queue and to helper functions.
  **/
 typedef struct queue {
     Node* head;
@@ -70,7 +72,7 @@ void dequeue(Queue* queue);
  * @pre Queue must exist, does not have to have elements.
  * @param queue pointer to Queue.
  * @return the number of nodes in the queue.
- */
+ **/
 int getLength(Queue* queue);
 
 /**Function to determine if the queue is empty.
@@ -78,8 +80,23 @@ int getLength(Queue* queue);
  * @param Queue pointer to Queue.
  * @return 1 if the queue is empty.
  * @return 0 if the queue is not empty.
- */
+ **/
 int isEmpty(Queue* queue);
+
+/**Function to print queue from the front to the end. This will the Queue's printNode function pointer to print.
+ * @pre Queue must exist, but does not have to have elements.
+ * @param list pointer to linked list.
+ **/
+void printQueue(Queue* queue);
+
+/**Function to print the data associated with a given node.
+ * @pre Node must exist, and must be populated.
+ * @pre print must be able to print the data stored in the given node.
+ * @param Node pointer to the node to be printed
+ * @param Pointer to print function
+ * @post the data associated with the node will be printed to console.
+ **/
+void printNode(Node* node, void (*print)(void *toBePrinted));
 
 /**Deletes the entire queue, starting with the nodes, followed by the Queue itself.
  * @pre Queue type must exist and be used in order to keep track of the Queue.
@@ -92,7 +109,7 @@ void deleteQueue(Queue* queue);
  * @post toDelete will have its associated data freed using delete, it will then free the Node
  * @param Node pointer to the node to be deleted
  * @param delete function pointer to function that will delete data associated with the node
- */
+ **/
 void deleteNode(Node* toDelete, void (*delete)(void *toBeDeleted));
 
 #endif

@@ -1,5 +1,9 @@
 #include "GraphAPI.h"
 
+/************************
+        FUNCTIONS
+************************/
+
 Graph* createGraph() {
   Graph* graph = malloc(sizeof(Graph));
 

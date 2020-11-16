@@ -132,14 +132,14 @@ void deleteNodeFromList(List* list, void* toBeDeleted);
  * @post toDelete will have its associate data freed using delete, it will then free the Node
  * @param Node pointer to the node to be deleted
  * @param delete function pointer to function that will delete data associated with the node
- */
+ **/
 void deleteNode(Node* toDelete, void (*delete)(void* toBeDeleted));
 
 /**Function to get the length of the list.
  * @pre List must exist, does not have to have elements.
  * @param list pointer to linked list.
  * @return the number of nodes in the list.
- */
+ **/
 int getLength(List* list);
 
 /**Function to determine if the list is empty.
@@ -147,7 +147,7 @@ int getLength(List* list);
  * @param list pointer to linked list.
  * @return 1 if the list is empty.
  * @return 0 if the list is not empty.
- */
+ **/
 int isEmpty(List* list);
 
 #endif

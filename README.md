@@ -22,6 +22,15 @@ Includes the following functions:
 - deleteNode
 
 ## Queue API
+- initializeQueue
+- initializeNode
+- front
+- enqueue
+- dequeue
+- getLength
+- isEmpty
+- deleteQueue
+- deleteNode
 
 ## Stack API
 
