@@ -29,37 +29,42 @@ typedef struct queue {
 /**
  *
  */
-void create(void (*printFunction)(void *toBePrinted), void (*deleteFucntion)(void *toBeDeleted), int (*compareFunction)(const void *first, const void *second));
+Queue* initializeQueue(void (*printFunction)(void *toBePrinted), void (*deleteFucntion)(void *toBeDeleted), int (*compareFunction)(const void *first, const void *second));
 
 /**
  *
  */
-void destroy(List *list);
+Node* initializeNode(void* data);
 
 /**
  * @param list
  * @param dataToBeAdded
  */
-void insert(List *list, void * dataToBeAdded);
+void insertNode(Queue* queue, void* dataToBeAdded);
 
 /**
  *
  */
-void pop(List *list);
+Node* peek(Queue* queue);
 
 /**
  *
  */
-void peek(List *list);
+void dequeue(Queue* queue);
 
 /**
  *
  */
-void removeNode(List *list, void *toBeDeleted);
+int getLength(Queue* queue);
 
 /**
  *
  */
-void isEmpty(List *list);
+int isEmpty(Queue* queue);
+
+/**
+  *
+  */
+void deleteQueue(Queue* queue);
 
 #endif

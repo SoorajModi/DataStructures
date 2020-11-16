@@ -80,9 +80,10 @@ void insertSorted(List* list, void* toBeAdded);
  *@post toBeDeleted will have its memory freed if it exists in the list.
  *@param list pointer to the dummy head of the list containing deleteFunction function pointer
  *@param toBeDeleted pointer to data that is to be removed from the list
- *@return returns EXIT_SUCCESS on success, and EXIT_FAILURE when empty. Returns -1 when the node cannot be found.
  **/
-int deleteNodeFromList(List* list, void* toBeDeleted);
+void deleteNodeFromList(List* list, void* toBeDeleted);
+
+void deleteNode(Node* toBeDeleted, void (*deleteFunction)(void* toBeDeleted));
 
 /**Function to return the data at the front of the list.
  *@pre The list exists and has memory allocated to it
@@ -110,6 +111,9 @@ void printForward(List* list);
  **/
 void printBackwards(List* list);
 
+int getLength(List* list);
+
+int isEmpty(List* list);
 
 /**User defined function to delete linked list node based on the incoming data.
  *@pre Data must not already be freed or NULL

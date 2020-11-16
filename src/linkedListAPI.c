@@ -1,5 +1,6 @@
-/*
-This is the library for a Linked List, made by Sooraj Modi
+/**
+ * Sooraj Modi
+ * Created September, 2020
  */
 #include "LinkedListAPI.h"
 
@@ -7,13 +8,13 @@ This is the library for a Linked List, made by Sooraj Modi
         FUNCTIONS
 ************************/
 
-List* initializeList(void (*printFunction)(void* toBePrinted), void (*deleteFucntion)(void* toBeDeleted), int (*compareFunction)(const void* first, const void* second)){
+List* initializeList(void (*printFunction)(void* toBePrinted), void (*deleteFunction)(void* toBeDeleted), int (*compareFunction)(const void* first, const void* second)){
     List* list = malloc(sizeof(List));
 
     list->head = NULL;
     list->tail = NULL;
     list->length = 0
-    list->print = printFucntion;
+    list->print = printFunction;
     list->delete = deleteFunction;
     list->compare = compareFunction;
 
@@ -31,7 +32,7 @@ Node* initializeNode(void* data){
 }
 
 void insertFront(List* list, void* toBeAdded) {
-    Node* toAdd = (Node*)toBeAdded;
+    Node* toAdd = initializeNode(toBeAdded);
     Node* head = list->head;
 
     if (head == NULL) {
@@ -47,7 +48,7 @@ void insertFront(List* list, void* toBeAdded) {
 }
 
 void insertBack(List* list, void* toBeAdded) {
-    Node* toAdd = (Node *)toBeAdded;
+    Node* toAdd = initializeNode(toBeAdded);
     Node* tail = list->tail;
 
     if (tail == NULL) {
@@ -63,46 +64,68 @@ void insertBack(List* list, void* toBeAdded) {
 }
 
 void insertSorted(List *list, void *toBeAdded){
+  // TODO: Finish
 }
 
 void deleteList(List *list) {
+  clearList(list);
+  free(list);
 }
 
-int deleteNodeFromList(List *list, void *toBeDeleted){
-   return -1;
+void deleteNodeFromList(List *list, void *toBeDeleted) {
+  Node* node = list->head;
+  while(node) {
+    if (list->compare(node->data, toBeDeleted) == 0) {
+      node->previous = node->next;
+      node->next->previous = node->previous;
+      deleteNode(node, list->delete);
+      list->length--;
+    }
+  }
 }
 
-void deleteNode(void *toBeDeleted) {
-  Node* node = (Node *)toBeDeleted;
-
+void deleteNode(Node* toBeDeleted, void (*delete)(void* toBeDeleted)) {
+  delete(toBeDeleted->data);
+  free(toBeDeleted);
 }
 
 void* getFromFront(List *list){
-  if((list == NULL) && (list->head == NULL)) {
-        return NULL;
-  }
-
   return list->head;
 }
 
-
-void* getFromBack(List *list){
-  if((list != NULL) && (list->head != NULL)) {
-        return NULL;
-    }
-
+void* getFromBack(List *list) {
     return list->tail;
 }
 
-void printForward(List *list){
+void printForward(List *list) {
+  Node* node = list->head;
+  while (node) {
+    list->print(node->data);
+    node = node->next;
+  }
 }
 
-void printBackwards(List *list){
+void printBackwards(List *list) {
+  Node* node = list->tail;
+  while (node) {
+    list->print(node->data);
+    node = node->previous;
+  }
 }
 
 void clearList(List* list) {
+  while (!isEmpty(list)) {
+    deleteNodeFromList(list, list->head->data);
+  }
 }
 
 int getLength(List* list) {
   return list->length;
+}
+
+int isEmpty(List* list) {
+  if(getLength(list) == 0) {
+    return 1;
+  }
+  return 0;
 }

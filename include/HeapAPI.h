@@ -17,11 +17,11 @@ typedef struct node {
 /**
  * Struct for a Queue. Contains a pointer to the front and end of the Queue and to helper functions.
  **/
-typedef struct binaryTree {
+typedef struct Heap {
     Node* root;
     void (*delete)(void* toBeDeleted);
     int (*compare)(const void* first, const void* second);
     void (*print)(void* toBePrinted);
-} BinaryTree;
+} Heap;
 
 #endif

@@ -5,11 +5,47 @@ BIN = ./bin/
 SRC = ./src/
 LIBS = .L./lib
 
-LinkedList:
-	$(CC) $(FLAGS) $(SRC)LinkedListTest.c -Iinclude -o $(BIN)program
+LinkedList: LinkedListAPI.h
+	$(CC) $(FLAGS) $(SRC)LinkedListAPITest.c $(SRC)LinkedListAPI.c -Iinclude -o $(BIN)linkedList
 
-run:
-	$(BIN)program $(SRC)data.txt
+Stack: StackAPI.h
+	$(CC) $(CFLAGS) $(SRC)StackAPITest.c $(SRC)StackAPI.c -Iinclude -o $(BIN)stack
+
+Queue: QueueAPI.h
+	$(CC) $(CFLAGS) $(SRC)QueueAPITest.c $(SRC)QueueAPI.c -Iinclude -o $(BIN)queue
+
+Heap: HeapAPI.h
+	$(CC) $(CFLAGS) $(SRC)HeapAPITest.c $(SRC)HeapAPI.c -Iinclude -o $(BIN)heap
+
+BinaryTree: BinaryTree.h
+	$(CC) $(CFLAGS) $(SRC)BinaryTreeAPITest.c $(SRC)BinaryTreeAPI.c -Iinclude -o $(BIN)binaryTree
+
+HashMap: HashMapAPI.h
+	$(CC) $(CFLAGS) $(SRC)HashMapAPITest.c $(SRC)HashMapAPI.c -Iinclude -o $(BIN)hashMap
+
+Graph: GraphAPI.h
+	$(CC) $(CFLAGS) $(SRC)GraphAPITest.c $(SRC)GraphAPI.c -Iinclude -o $(BIN)graph
+
+runLinkedList:
+	$(BIN)linkedList $(SRC)data.txt
+
+runStack:
+	$(BIN)stack
+
+runQueue:
+	$(BIN)queue
+
+runHeap:
+	$(BIN)heap
+
+runBinaryTree:
+	$(BIN)binaryTree
+
+runHashMap:
+	$(BIN)hashMap
+
+runGraph:
+	$(BIN)graph
 
 clean:
 	rm $(BIN)*
