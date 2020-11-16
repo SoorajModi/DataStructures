@@ -1,6 +1,6 @@
 #include "QueueAPI.h"
 
-Queue* initializeQueue(void (*printFunction)(void *toBePrinted), void (*deleteFucntion)(void *toBeDeleted), int (*compareFunction)(const void *first, const void *second));
+Queue* initializeQueue(void (*printFunction)(void *toBePrinted), void (*deleteFunction)(void *toBeDeleted), int (*compareFunction)(const void *first, const void *second));
   Queue* queue = malloc(sizeof(Queue));
 
   queue->head = NULL;
@@ -23,7 +23,11 @@ Node* initializeNode(void* data) {
   return node;
 }
 
-void insertNode(Queue* queue, void* dataToBeAdded){
+void* front(Queue* queue) {
+  return (void *)(queue->head);
+}
+
+void enqueue(Queue* queue, void* dataToBeAdded){
   Node* toAdd = initializeNode(dataToBeAdded);
 
   if (queue->tail) {
@@ -37,15 +41,13 @@ void insertNode(Queue* queue, void* dataToBeAdded){
   queue->length++;
 }
 
-Node* peek(Queue* queue) {
-  return queue->head;
-}
-
 void dequeue(Queue* queue) {
   Node* toPop = queue->head;
   queue->head = toPop->next;
-  queue->delete(toPop->data);
-  free(toPop);
+
+  deleteNode(toPop, queue->delete);
+
+  queue->length--;
 }
 
 int getLength(Queue* queue) {
@@ -61,7 +63,12 @@ int isEmpty(Queue* queue){
 
 void deleteQueue(Queue* queue) {
   while(!isEmpty(queue)) {
-    pop(queue);
+    dequeue(queue);
   }
   free(queue);
+}
+
+void deleteNode(Node* toDelete, void (*delete)(void *toBeDeleted)) {
+  delete(toDelete->data);
+  free(toDelete);
 }

@@ -63,60 +63,68 @@ void insertBack(List* list, void* toBeAdded) {
     }
 }
 
-void insertSorted(List *list, void *toBeAdded){
-  // TODO: Finish
-}
-
-void deleteList(List *list) {
-  clearList(list);
-  free(list);
-}
-
-void deleteNodeFromList(List *list, void *toBeDeleted) {
-  Node* node = list->head;
-  while(node) {
-    if (list->compare(node->data, toBeDeleted) == 0) {
-      node->previous = node->next;
-      node->next->previous = node->previous;
-      deleteNode(node, list->delete);
-      list->length--;
+void insertSorted(List* list, void* toBeAdded){
+  if (list->head == NULL || list->compare(list->head->data, toBeAdded) < 0) {
+    insertFront(list, toBeAdded);
+  } else if (list->compare(list->tail->data, toBeAdded) >= 0) {
+    insertBack(list, toBeAdded);
+  } else {
+    Node* node = list->head;
+    while (node) {
+      if (list->compare(node->data, toBeAdded) < 0) {
+        Node* toAdd = initializeNode(toBeAdded);
+        node->prev->next = toAdd;
+        node->next->prev = toAdd;
+        toAdd->prev = node->prev;
+        toAdd->next = node->next;
+        list->length++;
+        return;
+      }
+      node = node->next;
     }
   }
 }
 
-void deleteNode(Node* toBeDeleted, void (*delete)(void* toBeDeleted)) {
-  delete(toBeDeleted->data);
-  free(toBeDeleted);
-}
-
-void* getFromFront(List *list){
-  return list->head;
+void* getFromFront(List *list) {
+  return (void*)(list->head);
 }
 
 void* getFromBack(List *list) {
-    return list->tail;
+    return (void*)(list->tail);
 }
 
-void printForward(List *list) {
+void* getNode(List* list, void* toFind) {
   Node* node = list->head;
+
   while (node) {
-    list->print(node->data);
+    if (list->compare(node->data, toFind) == 0) {
+      return (void *)node;
+    }
+  }
+
+  return NULL;
+}
+
+void printForward(List* list) {
+  Node* node = list->head;
+
+  while (node) {
+    printNode(node, list->print);
     node = node->next;
   }
 }
 
-void printBackwards(List *list) {
+void printBackwards(List* list) {
   Node* node = list->tail;
+
   while (node) {
-    list->print(node->data);
+    printNode(node, list->print);
     node = node->previous;
   }
 }
 
-void clearList(List* list) {
-  while (!isEmpty(list)) {
-    deleteNodeFromList(list, list->head->data);
-  }
+void printNode(Node* node, void (*print)(void* toBePrinted)) {
+  print(node->data);
 }
 
 int getLength(List* list) {
@@ -128,4 +136,33 @@ int isEmpty(List* list) {
     return 1;
   }
   return 0;
+}
+
+void deleteList(List* list) {
+  clearList(list);
+  free(list);
+}
+
+void clearList(List* list) {
+  while (!isEmpty(list)) {
+    deleteNodeFromList(list, list->head->data);
+  }
+}
+
+void deleteNodeFromList(List* list, void* toBeDeleted) {
+  Node* node = list->head;
+  while (node) {
+    if (list->compare(node->data, toBeDeleted) == 0) {
+      node->previous->next = node->next;
+      node->next->previous = node->previous;
+      deleteNode(node, list->delete);
+      list->length--;
+    }
+    node = node->next;
+  }
+}
+
+void deleteNode(Node* toDelete, void (*delete)(void* toBeDeleted)) {
+  delete(toDelete->data);
+  free(toDelete);
 }
