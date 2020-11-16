@@ -5,8 +5,8 @@ BIN = ./bin/
 SRC = ./src/
 LIBS = .L./lib
 
-LinkedList: LinkedListAPI.h
-	$(CC) $(CFLAGS) $(SRC)LinkedListAPITest.c $(SRC)LinkedListAPI.c -Iinclude -o $(BIN)linkedList
+LinkedList:
+	$(CC) $(CFLAGS) $(SRC)LinkedListAPITest.c $(SRC)LinkedListAPI.c $(SRC)DataTypes.c -Iinclude -o $(BIN)linkedList
 
 Stack: StackAPI.h
 	$(CC) $(CFLAGS) $(SRC)StackAPITest.c $(SRC)StackAPI.c -Iinclude -o $(BIN)stack
@@ -27,7 +27,7 @@ Graph: GraphAPI.h
 	$(CC) $(CFLAGS) $(SRC)GraphAPITest.c $(SRC)GraphAPI.c -Iinclude -o $(BIN)graph
 
 runLinkedList:
-	$(BIN)linkedList $(SRC)data.txt
+	$(BIN)linkedList $(SRC)listData.txt
 
 runStack:
 	$(BIN)stack

@@ -19,7 +19,7 @@ int main(int argc, char *argv[]) {
     //Find size of the file
     int eof = getEOF(fp);
 
-    List* list = initializeList(&printString, &deleteString, &compareStrings);
+    List* list = initializeList(&printString, &deleteString, &compareString);
 
     //Read in the file
     while(ftell(fp) != eof) {
@@ -41,4 +41,5 @@ int getEOF(FILE* fp) {
   fseek(fp, 0, SEEK_END);
   int fileEnd = ftell(fp);
   fseek(fp, 0, SEEK_SET);
+  return fileEnd;
 }

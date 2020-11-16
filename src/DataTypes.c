@@ -4,11 +4,7 @@
 
 void printPerson(void* toBePrinted) {
   Person* toPrint = (Person *)toBePrinted;
-  printf("{
-    firstName: %s,
-    lastName: %s,
-    age: %d
-  }\n", toPrint->firstName, toPrint->lastName, toPrint->age);
+  printf("{firstName: %s,lastName: %s,age: %d}\n", toPrint->firstName, toPrint->lastName, toPrint->age);
 }
 
 int comparePerson(const void* first, const void* second) {
@@ -39,7 +35,7 @@ void deleteString(void* toBeDeleted) {
 // Integer Functions
 
 void printInt(void* toBePrinted) {
-  printf("%d\n", (int *)toBePrinted);
+  printf("%ls\n", (int *)toBePrinted);
 }
 
 int compareInt(const void* first, const void* second) {

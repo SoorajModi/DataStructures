@@ -110,13 +110,19 @@ void printBackwards(List* list);
  * @param Pointer to print function
  * @post the data associated with the node will be printed to console.
  **/
-void printNode(Node* node, void (*print)(void* toBePrinted))
+void printNode(Node* node, void (*print)(void* toBePrinted));
 
 /**Deletes the entire linked list head to tail, starting with the nodes, followed by the list itself.
  * @pre List type must exist and be used in order to keep track of the linked list.
  * @param list pointer to the list struct.
  **/
 void deleteList(List* list);
+
+/**Deletes all nodes in a linked list, but not the list itself.
+ * @pre List type must exist and be used.
+ * @param list pointer to the List.
+ */
+void clearList(List* list);
 
 /**Function to remove a node from the list and alter the pointers accordingly to not disrupt the order of the
  * data structure.

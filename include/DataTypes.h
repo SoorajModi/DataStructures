@@ -1,6 +1,10 @@
 #ifndef _DATA_TYPES_
 #define _DATA_TYPES_
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 typedef struct person {
   char* firstName;
   char* lastName;
