@@ -6,7 +6,7 @@ SRC = ./src/
 LIBS = .L./lib
 
 LinkedList: LinkedListAPI.h
-	$(CC) $(FLAGS) $(SRC)LinkedListAPITest.c $(SRC)LinkedListAPI.c -Iinclude -o $(BIN)linkedList
+	$(CC) $(CFLAGS) $(SRC)LinkedListAPITest.c $(SRC)LinkedListAPI.c -Iinclude -o $(BIN)linkedList
 
 Stack: StackAPI.h
 	$(CC) $(CFLAGS) $(SRC)StackAPITest.c $(SRC)StackAPI.c -Iinclude -o $(BIN)stack

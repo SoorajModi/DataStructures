@@ -8,7 +8,7 @@
         FUNCTIONS
 ************************/
 
-List* initializeList(void (*printFunction)(void* toBePrinted), void (*deleteFunction)(void* toBeDeleted), int (*compareFunction)(const void* first, const void* second)){
+List* initializeList(void (*printFunction)(void* toBePrinted), void (*deleteFunction)(void* toBeDeleted), int (*compareFunction)(const void* first, const void* second)) {
     List* list = malloc(sizeof(List));
 
     list->head = NULL;

@@ -1,5 +1,5 @@
-#ifndef _LIST_API_
-#define _LIST_API_
+#ifndef _LINKED_LIST_API_
+#define _LINKED_LIST_API_
 
 #include <stdio.h>
 #include <stdlib.h>
