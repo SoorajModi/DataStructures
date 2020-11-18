@@ -8,12 +8,12 @@
         FUNCTIONS
 ************************/
 
-Queue* initializeQueue(void (*printFunction)(void *toBePrinted), void (*deleteFunction)(void *toBeDeleted), int (*compareFunction)(const void *first, const void *second));
-  return (Queue *)initializeList(print, delete, compare);
+Queue* initializeQueue(void (*printFunction)(void *toBePrinted), void (*deleteFunction)(void *toBeDeleted), int (*compareFunction)(const void *first, const void *second)) {
+  return (Queue *)initializeList(printFunction, deleteFunction, compareFunction);
 }
 
 void* front(Queue* queue) {
-  return getFromFront((List *)queue);
+  return getDataFromFront((List *)queue);
 }
 
 void enqueue(Queue* queue, void* dataToBeAdded){
@@ -37,5 +37,5 @@ void printQueue(Queue* queue) {
 }
 
 void deleteQueue(Queue* queue) {
-  deleteList((List *)queue)
+  deleteList((List *)queue);
 }
