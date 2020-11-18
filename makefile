@@ -4,15 +4,34 @@ CFLAGS = -Wall -std=c99 -pedantic
 BIN = ./bin/
 SRC = ./src/
 LIBS = .L./lib
+ASS = ./assets/
 
 LinkedList:
 	$(CC) $(CFLAGS) $(SRC)LinkedListAPITest.c $(SRC)LinkedListAPI.c $(SRC)DataTypes.c -Iinclude -o $(BIN)linkedList
 
+runLinkedList: LinkedList
+	$(BIN)linkedList $(ASS)TestData.txt
+
+runValgrindLinkedList: runLinkedList
+	valgrind --leak-check=full --show-leak-kinds=all $(BIN)linkedList $(ASS)TestData.txt
+
 Stack: StackAPI.h
 	$(CC) $(CFLAGS) $(SRC)StackAPITest.c $(SRC)StackAPI.c -Iinclude -o $(BIN)stack
 
+runStack: Stack
+	$(BIN)stack $(ASS)TestData.txt
+
+runValgrindStack: runStack
+	valgrind --leak-check=full --show-leak-kinds=all $(BIN)stack $(ASS)TestData.txt
+
 Queue: QueueAPI.h
 	$(CC) $(CFLAGS) $(SRC)QueueAPITest.c $(SRC)QueueAPI.c -Iinclude -o $(BIN)queue
+
+runQueue:
+	$(BIN)queue $(ASS)TestData.txt
+
+runValgrindStack: runQueue
+	valgrind --leak-check=full --show-leak-kinds=all $(BIN)queue $(ASS)TestData.txt
 
 Heap: HeapAPI.h
 	$(CC) $(CFLAGS) $(SRC)HeapAPITest.c $(SRC)HeapAPI.c -Iinclude -o $(BIN)heap
@@ -25,18 +44,6 @@ HashMap: HashMapAPI.h
 
 Graph: GraphAPI.h
 	$(CC) $(CFLAGS) $(SRC)GraphAPITest.c $(SRC)GraphAPI.c -Iinclude -o $(BIN)graph
-
-runLinkedList: LinkedList
-	$(BIN)linkedList $(SRC)listData.txt
-
-runValgrindLinkedList: LinkedList
-	valgrind --leak-check=full --show-leak-kinds=all $(BIN)linkedList $(SRC)listData.txt
-
-runStack:
-	$(BIN)stack
-
-runQueue:
-	$(BIN)queue
 
 runHeap:
 	$(BIN)heap
