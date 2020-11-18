@@ -9,86 +9,33 @@
 ************************/
 
 Queue* initializeQueue(void (*printFunction)(void *toBePrinted), void (*deleteFunction)(void *toBeDeleted), int (*compareFunction)(const void *first, const void *second));
-  Queue* queue = malloc(sizeof(Queue));
-
-  queue->head = NULL;
-  queue->tail = NULL;
-  queue->length = 0;
-  queue->print = printFunction;
-  queue->delete = deleteFunction;
-  queue->compare = compareFunction;
-
-  return queue;
-}
-
-Node* initializeNode(void* data) {
-  Node* node = malloc(sizeof(Node));
-
-  node->data = data;
-  node->next = NULL;
-  node->previous = NULL;
-
-  return node;
+  return (Queue *)initializeList(print, delete, compare);
 }
 
 void* front(Queue* queue) {
-  return (void *)(queue->head);
+  return getFromFront((List *)queue);
 }
 
 void enqueue(Queue* queue, void* dataToBeAdded){
-  Node* toAdd = initializeNode(dataToBeAdded);
-
-  if (queue->tail) {
-    queue->tail->next = toAdd;
-    toAdd->previous = queue->tail;
-  } else {
-    queue->head = toAdd;
-  }
-  
-  queue->tail = toAdd;
-  queue->length++;
+  insertBack((List *)queue, dataToBeAdded);
 }
 
 void dequeue(Queue* queue) {
-  Node* toPop = queue->head;
-  queue->head = toPop->next;
-
-  deleteNode(toPop, queue->delete);
-
-  queue->length--;
+  deleteFromFront((List *)queue);
 }
 
-int getLength(Queue* queue) {
-  return queue->length;
+int getQueueLength(Queue* queue) {
+  return getLength((List *)queue);
 }
 
-int isEmpty(Queue* queue){
-  if (getLength(queue) == 0) {
-    return 0;
-  }
-  return 1;
+int isQueueEmpty(Queue* queue){
+  return isEmpty((List *)queue);
 }
 
 void printQueue(Queue* queue) {
-  Node* node = (Node*)front(queue);
-  while(node) {
-    printNode(node, queue->print);
-    node = node->next;
-  }
-}
-
-void printNode(Node* node, void (*print)(void *toBePrinted)) {
-  print(node->data);
+  printForward((List *)queue);
 }
 
 void deleteQueue(Queue* queue) {
-  while(!isEmpty(queue)) {
-    dequeue(queue);
-  }
-  free(queue);
-}
-
-void deleteNode(Node* toDelete, void (*delete)(void *toBeDeleted)) {
-  delete(toDelete->data);
-  free(toDelete);
+  deleteList((List *)queue)
 }

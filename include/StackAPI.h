@@ -1,6 +1,10 @@
 #ifndef _STACK_API_
 #define _STACK_API_
 
+/************************
+     CORE LIBARIES
+************************/
+
 #include "SinglyLinkedListAPI.h"
 
 /************************
