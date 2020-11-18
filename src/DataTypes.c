@@ -29,9 +29,8 @@ int compareString(const void* first, const void* second) {
 }
 
 void deleteString(void* toBeDeleted) {
-  free((char *)toBeDeleted);
+  free(toBeDeleted);
 }
-
 // Integer Functions
 
 void printInt(void* toBePrinted) {

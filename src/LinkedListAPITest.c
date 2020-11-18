@@ -25,8 +25,8 @@ int main(int argc, char *argv[]) {
     while(ftell(fp) != eof) {
         char tempStr[100];
         fgets(tempStr, 100, fp);
-        char* str = malloc(sizeof(char)*(strlen(tempStr) + 1));
-        strncpy(str, tempStr, strlen(tempStr));
+        char* str = malloc(sizeof(char)*strlen(tempStr)+1);
+        strncpy(str, tempStr, strlen(tempStr) + 1);
 	str[strlen(str) - 1] = '\0';
 	insertBack(list, (void *)str);
     }
@@ -34,6 +34,8 @@ int main(int argc, char *argv[]) {
     printForward(list);
 
     deleteList(list);
+    
+    fclose(fp);
     return 0;
 }
 

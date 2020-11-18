@@ -33,12 +33,11 @@ Node* initializeNode(void* data){
 
 void insertFront(List* list, void* toBeAdded) {
     Node* toAdd = initializeNode(toBeAdded);
-    Node* head = ;
 
     if (list->head) {
-      toAdd->next = head;
+      toAdd->next = list->head;
       toAdd->prev = NULL;
-      head->prev = toAdd;
+      list->head->prev = toAdd;
     } else {
       list->tail = toAdd;
     }
@@ -48,12 +47,11 @@ void insertFront(List* list, void* toBeAdded) {
 
 void insertBack(List* list, void* toBeAdded) {
     Node* toAdd = initializeNode(toBeAdded);
-    Node* tail = ;
 
     if (list->tail) {
-      toAdd->prev = tail;
+      toAdd->prev = list->tail;
       toAdd->next = NULL;
-      tail->next = toAdd;
+      list->tail->next = toAdd;
     } else {
       list->head = toAdd;
     }
@@ -153,14 +151,12 @@ void deleteNodeFromList(List* list, void* toBeDeleted) {
     if (list->compare(node->data, toBeDeleted) == 0) {
       if (node == list->head) {
 	list->head = node->next;
-	printf("Test1\n");
       } else if (node == list->tail) {
 	list->tail = node->prev;
       } else {
         node->prev->next = node->next;
         node->next->prev = node->prev;
       }
-      printf("Test2\n");
       deleteNode(node, list->delete);
       list->length--;
       return;
@@ -171,7 +167,6 @@ void deleteNodeFromList(List* list, void* toBeDeleted) {
 
 void deleteNode(Node* toDelete, void (*delete)(void* toBeDeleted)) {
   delete(toDelete->data);
-  if(toDelete->data)
-	  printf("Did not delete\n");
   free(toDelete);
 }
+
