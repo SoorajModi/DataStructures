@@ -61,7 +61,8 @@ Node* initializeNode(void* data);
 /**Inserts a Node to the front of a linked list. The list then updates accordingly.
  * @pre 'List' type must exist and be used in order to keep track of the linked list.
  * @param list pointer to the List Struct.
- * @param toBeAdded a pointer to data that is to be added to the linked list
+ * @param toBeAdded a pointer to data that is to be added to the linked list.
+ * @post Node is inserted into the List, set to List head.
  **/
 void insertFront(List* list, void* toBeAdded);
 
@@ -69,6 +70,7 @@ void insertFront(List* list, void* toBeAdded);
  * @pre 'List' type must exist and be used in order to keep track of the linked list.
  * @param list pointer to the List struct.
  * @param toBeAdded a pointer to data that is to be added to the linked list.
+ * @post Node is inserted into the List, set to List tail.
  **/
 void insertBack(List* list, void* toBeAdded);
 
