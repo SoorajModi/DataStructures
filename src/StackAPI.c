@@ -8,16 +8,16 @@
       CORE FUNCTIONS
 ************************/
 
-Stack* initializeStack(void (*printFunction)(void *toBePrinted), void (*deleteFucntion)(void *toBeDeleted), int (*compareFunction)(const void *first, const void *second)) {
+Stack* initializeStack(void (*printFunction)(void *toBePrinted), void (*deleteFunction)(void *toBeDeleted), int (*compareFunction)(const void *first, const void *second)) {
   return (Stack *)initializeList(printFunction, deleteFunction, compareFunction);
 }
 
 void* top(Stack* stack) {
-  return getDataFromFront((List*)Stack);
+  return getDataFromFront((List*)stack);
 }
 
 void pop(Stack* stack) {
-  deleteFromFront((List*)stack)
+  deleteFromFront((List*)stack);
 }
 
 void push(Stack* stack, void* toBeAdded) {

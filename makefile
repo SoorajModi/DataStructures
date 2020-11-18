@@ -15,8 +15,8 @@ runLinkedList: LinkedList
 runValgrindLinkedList: runLinkedList
 	valgrind --leak-check=full --show-leak-kinds=all $(BIN)linkedList $(ASS)TestData.txt
 
-Stack: StackAPI.h
-	$(CC) $(CFLAGS) $(SRC)StackAPITest.c $(SRC)StackAPI.c -Iinclude -o $(BIN)stack
+Stack:
+	$(CC) $(CFLAGS) $(SRC)StackAPITest.c $(SRC)StackAPI.c $(SRC)SinglyLinkedListAPI.c $(SRC)DataTypes.c -Iinclude -o $(BIN)stack
 
 runStack: Stack
 	$(BIN)stack $(ASS)TestData.txt
@@ -24,13 +24,13 @@ runStack: Stack
 runValgrindStack: runStack
 	valgrind --leak-check=full --show-leak-kinds=all $(BIN)stack $(ASS)TestData.txt
 
-Queue: QueueAPI.h
-	$(CC) $(CFLAGS) $(SRC)QueueAPITest.c $(SRC)QueueAPI.c -Iinclude -o $(BIN)queue
+Queue:
+	$(CC) $(CFLAGS) $(SRC)QueueAPITest.c $(SRC)QueueAPI.c $(SRC)LinkedListAPI.c $(SRC)DataTypes.c -Iinclude -o $(BIN)queue
 
-runQueue:
+runQueue: Queue
 	$(BIN)queue $(ASS)TestData.txt
 
-runValgrindStack: runQueue
+runValgrindQueue: runQueue
 	valgrind --leak-check=full --show-leak-kinds=all $(BIN)queue $(ASS)TestData.txt
 
 Heap: HeapAPI.h

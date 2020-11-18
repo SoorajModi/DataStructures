@@ -86,7 +86,7 @@ void printBackwards(List* list) {
   if(node->next) {
     printNodesBackwards(node->next, list->print);
   }
-  printNode(node);
+  printNode(node, list->print);
 }
 
 int isEmpty(List* list) {
@@ -107,14 +107,14 @@ void deleteList(List* list) {
 
 void clearList(List* list) {
   while (!isEmpty(list)) {
-    deleteDataFromList(list, list->head->data);
+    deleteFromFront(list);
   }
 }
 
 void deleteFromFront(List* list) {
   Node* node = list->head;
   list->head = node->next;
-  deleteNode(node);
+  deleteNode(node, list->delete);
   list->length--;
 }
 
@@ -125,7 +125,7 @@ void deleteFromBack(List* list) {
   while (getNext(node) != tail) {
     node = getNext(node);
   }
-  deleteNode(tail);
+  deleteNode(tail, list->delete);
 
   list->tail = node;
   list->length--;
@@ -154,7 +154,7 @@ void printNodesBackwards(Node* node, void (*print)(void* toBePrinted)){
   if (node->next) {
     printNodesBackwards(node, print);
   }
-  printNode(node);
+  printNode(node, print);
 }
 
 Node* getNode(List* list, void* toFind) {
