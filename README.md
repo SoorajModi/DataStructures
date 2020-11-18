@@ -5,21 +5,20 @@ The following are a list of Data Structures written in C. Most of the APIs are n
 ## Linked List API
 Includes the following functions:
 - initializeList
-- initializeNode
 - insertFront
 - insertBack
 - insertSorted
 - getFromFront
 - getFromBack
-- getNode
 - printForward
 - printBackwards
-- printNode
 - getLength
 - isEmpty
+- clearList
 - deleteList
-- deleteNodeFromList
-- deleteNode
+- deleteDataFromList
+
+## Singly Linked List API
 
 ## Queue API
 - initializeQueue

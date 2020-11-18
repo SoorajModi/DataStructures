@@ -1,9 +1,17 @@
 #ifndef _LINKED_LIST_API_
 #define _LINKED_LIST_API_
 
+/************************
+     CORE LIBARIES
+************************/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+/************************
+       CORE OBJECTS
+************************/
 
 /**
  * Node for the Linked List
@@ -27,6 +35,10 @@ typedef struct list {
     int (*compare)(const void* first, const void* second);
     void (*print)(void* toBePrinted);
 } List;
+
+/************************
+      CORE FUNCTIONS
+************************/
 
 /**Function to initialize the List Struct. Allocates memory to the Struct.
  * @param printFunction function pointer to print the data associated with a single node in the list.
@@ -74,22 +86,14 @@ void insertSorted(List* list, void* toBeAdded);
  * @param list pointer to the List.
  * @return pointer to the node located at the head of the list
  **/
-void* getFromFront(List* list);
+void* getDataFromFront(List* list);
 
 /**Function to return the data at the back of the list.
  * @pre The list exists and has memory allocated to it
  * @param list pointer to the dummy head of the list containing the tail of the list
  * @return pointer to the node located at the tail of the list
  **/
-void* getFromBack(List* list);
-
-/**Function to return the node that matches a specified.
- * @pre The list exists and has memory allocated to it.
- * @param list pointer to a linked list.
- * @param data to be found.
- * @return pointer to the node with data toFind.
- **/
-void* getNode(List* list, void* toFind);
+void* getDataFromBack(List* list);
 
 /**Function to print list from head to tail. This will utilize the list's printNode function pointer to print.
  * @pre List must exist, but does not have to have elements.
@@ -103,14 +107,12 @@ void printForward(List* list);
  **/
 void printBackwards(List* list);
 
-/**Function to print the data associated with a given node.
- * @pre Node must exist, and must be populated.
- * @pre print must be able to print the data stored in the given node.
- * @param Node pointer to the node to be printed
- * @param Pointer to print function
- * @post the data associated with the node will be printed to console.
+/**Function to get the length of the list.
+ * @pre List must exist, does not have to have elements.
+ * @param list pointer to linked list.
+ * @return the number of nodes in the list.
  **/
-void printNode(Node* node, void (*print)(void* toBePrinted));
+int getLength(List* list);
 
 /**Deletes the entire linked list head to tail, starting with the nodes, followed by the list itself.
  * @pre List type must exist and be used in order to keep track of the linked list.
@@ -131,7 +133,95 @@ void clearList(List* list);
  * @param list pointer to the dummy head of the list containing deleteFunction function pointer
  * @param toBeDeleted pointer to data that is to be removed from the list
  **/
-void deleteNodeFromList(List* list, void* toBeDeleted);
+void deleteDataFromList(List* list, void* toBeDeleted);
+
+/**Function to determine if the list is empty.
+ * @pre List must exist, does not have to have elements.
+ * @param list pointer to linked list.
+ * @return 1 if the list is empty.
+ * @return 0 if the list is not empty.
+ **/
+int isEmpty(List* list);
+
+/**Deletes the head of the linked list, including the data associated with the head.
+ * @pre List type must exist and be used in order to keep track of the linked list.
+ * @param list pointer to the list struct.
+ * @post head node is deleted, the next element of the list is set to head.
+ **/
+void deleteFromFront(List* list);
+
+/**Deletes the tail of the linked list, including the data associated with the tail.
+ * @pre List type must exist and be used in order to keep track of the linked list.
+ * @param list pointer to the list struct.
+ * @post tail node is deleted, the previous element of the list is set to tail.
+ **/
+void deleteFromBack(List* list);
+
+/**Deletes the node with data matching toBeDeleted in the linked list.
+ * @pre List type must exist and be used in order to keep track of the linked list.
+ * @param list pointer to the list struct.
+ * @param void pointer to the data to be deleted.
+ * @post node associated with toBeDeleted is removed, list is maintained.
+ **/
+void deleteDataFromList(List* list, void* toBeDeleted);
+
+/************************
+    UTILITY FUNCTIONS
+************************/
+
+// Utility function for insertSorted
+void insertInorder(List* list, void* toBeAdded);
+
+// Utility function for deleteDataFromList
+void deleteNodeFromList(List* list, Node* node);
+
+// Utility function for deleteNodeFromList
+void deleteNodeFromMiddle(List* list, Node* node) ;
+
+/**Function to return the node that matches a specified.
+ * @pre The list exists and has memory allocated to it.
+ * @param list pointer to a linked list.
+ * @param data to be found.
+ * @return pointer to the node with data toFind.
+ **/
+Node* getNode(List* list, void* toFind);
+
+/**Function to return the head of the list.
+ * @pre The list exists and has memory allocated to it.
+ * @param list pointer to a linked list.
+ * @return pointer to the head of list.
+ **/
+Node* getHead(List* list);
+
+/**Function to return the tail of the list.
+ * @pre The list exists and has memory allocated to it.
+ * @param list pointer to a linked list.
+ * @return pointer to the tail of list.
+ **/
+Node* getTail(List* list);
+
+/**Function to return the next element of the list.
+ * @pre The node exists and has memory allocated to it.
+ * @param Node pointer to a node.
+ * @return pointer to the next node.
+ **/
+Node* getNext(Node* node);
+
+/**Function to return the previous element of the list.
+ * @pre The node exists and has memory allocated to it.
+ * @param Node pointer to a node.
+ * @return pointer to the next node.
+ **/
+Node* getPrev(Node* node);
+
+/**Function to print the data associated with a given node.
+ * @pre Node must exist, and must be populated.
+ * @pre print must be able to print the data stored in the given node.
+ * @param Node pointer to the node to be printed
+ * @param Pointer to print function
+ * @post the data associated with the node will be printed to console.
+ **/
+void printNode(Node* node, void (*print)(void* toBePrinted));
 
 /**Function to delete a single node.
  * @pre Node must exist and have memory allocated to it
@@ -141,19 +231,15 @@ void deleteNodeFromList(List* list, void* toBeDeleted);
  **/
 void deleteNode(Node* toDelete, void (*delete)(void* toBeDeleted));
 
-/**Function to get the length of the list.
- * @pre List must exist, does not have to have elements.
- * @param list pointer to linked list.
- * @return the number of nodes in the list.
+/**Compare a node with data.
+ * @pre Node, data, and compare function must exist and have memory allocated to it
+ * @param Node pointer to the node to be compared.
+ * @param Pointer to data to be compared.
+ * @param delete function pointer to function that will delete data associated with the node.
+ * @return > 0 if first->data > second.
+ * @return == 0 if first->data == second.
+ * @return < 0 if first->data < second.
  **/
-int getLength(List* list);
-
-/**Function to determine if the list is empty.
- * @pre List must exist, does not have to have elements.
- * @param list pointer to linked list.
- * @return 1 if the list is empty.
- * @return 0 if the list is not empty.
- **/
-int isEmpty(List* list);
+int compareNode(Node* first, void* second, int (*compare)(const void* first, const void* second));
 
 #endif

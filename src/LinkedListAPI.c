@@ -5,7 +5,7 @@
 #include "LinkedListAPI.h"
 
 /************************
-        FUNCTIONS
+      CORE FUNCTIONS
 ************************/
 
 List* initializeList(void (*printFunction)(void* toBePrinted), void (*deleteFunction)(void* toBeDeleted), int (*compareFunction)(const void* first, const void* second)) {
@@ -34,9 +34,8 @@ Node* initializeNode(void* data){
 void insertFront(List* list, void* toBeAdded) {
     Node* toAdd = initializeNode(toBeAdded);
 
-    if (list->head) {
-      toAdd->next = list->head;
-      toAdd->prev = NULL;
+    if (getHead(list)) {
+      toAdd->next = getHead(list);
       list->head->prev = toAdd;
     } else {
       list->tail = toAdd;
@@ -48,9 +47,8 @@ void insertFront(List* list, void* toBeAdded) {
 void insertBack(List* list, void* toBeAdded) {
     Node* toAdd = initializeNode(toBeAdded);
 
-    if (list->tail) {
-      toAdd->prev = list->tail;
-      toAdd->next = NULL;
+    if (getTail(list)) {
+      toAdd->prev = getTail(list);
       list->tail->next = toAdd;
     } else {
       list->head = toAdd;
@@ -60,71 +58,39 @@ void insertBack(List* list, void* toBeAdded) {
 }
 
 void insertSorted(List* list, void* toBeAdded){
-  if (list->head == NULL || list->compare(list->head->data, toBeAdded) < 0) {
+  if (!getHead(list) || compareNode(getHead(list), toBeAdded, list->compare) < 0) {
     insertFront(list, toBeAdded);
-  } else if (list->compare(list->tail->data, toBeAdded) >= 0) {
+  } else if (compareNode(getTail(list), toBeAdded, list->compare) >= 0) {
     insertBack(list, toBeAdded);
   } else {
-    Node* node = list->head;
-    while (node) {
-      if (list->compare(node->data, toBeAdded) < 0) {
-        Node* toAdd = initializeNode(toBeAdded);
-        node->prev->next = toAdd;
-        node->next->prev = toAdd;
-        toAdd->prev = node->prev;
-        toAdd->next = node->next;
-        list->length++;
-        return;
-      }
-      node = node->next;
-    }
+    insertInorder(list, toBeAdded);
   }
 }
 
-void* getFromFront(List *list) {
-  return (void*)(list->head);
+void* getDataFromFront(List *list) {
+  return getHead(list)->data;
 }
 
-void* getFromBack(List *list) {
-    return (void*)(list->tail);
-}
-
-void* getNode(List* list, void* toFind) {
-  Node* node = list->head;
-
-  while (node) {
-    if (list->compare(node->data, toFind) == 0) {
-      return (void *)node;
-    }
-  }
-
-  return NULL;
+void* getDataFromBack(List *list) {
+    return getTail(list)->data;
 }
 
 void printForward(List* list) {
-  Node* node = list->head;
-  
+  Node* node = getHead(list);
+
   while (node) {
     printNode(node, list->print);
-    node = node->next;
+    node = getNext(node);
   }
 }
 
 void printBackwards(List* list) {
-  Node* node = list->tail;
+  Node* node = getTail(list);
 
   while (node) {
     printNode(node, list->print);
-    node = node->prev;
+    node = getPrev(node);
   }
-}
-
-void printNode(Node* node, void (*print)(void* toBePrinted)) {
-  print(node->data);
-}
-
-int getLength(List* list) {
-  return list->length;
 }
 
 int isEmpty(List* list) {
@@ -134,6 +100,10 @@ int isEmpty(List* list) {
   return 0;
 }
 
+int getLength(List* list) {
+  return list->length;
+}
+
 void deleteList(List* list) {
   clearList(list);
   free(list);
@@ -141,28 +111,103 @@ void deleteList(List* list) {
 
 void clearList(List* list) {
   while (!isEmpty(list)) {
-    deleteNodeFromList(list, list->head->data);
+    deleteFromFront(list);
   }
 }
 
-void deleteNodeFromList(List* list, void* toBeDeleted) {
+void deleteFromFront(List* list) {
+  Node* node = getHead(list);
+  list->head = getNext(node);
+  deleteNode(node, list->delete);
+  list->length--;
+}
+
+void deleteFromBack(List* list) {
+  Node* node = getTail(list);
+  list->tail = getPrev(node);
+  deleteNode(node, list->delete);
+  list->length--;
+}
+
+void deleteDataFromList(List* list, void* toBeDeleted) {
   Node* node = list->head;
   while (node) {
     if (list->compare(node->data, toBeDeleted) == 0) {
-      if (node == list->head) {
-	list->head = node->next;
-      } else if (node == list->tail) {
-	list->tail = node->prev;
-      } else {
-        node->prev->next = node->next;
-        node->next->prev = node->prev;
-      }
-      deleteNode(node, list->delete);
-      list->length--;
+      deleteNodeFromList(list, node);
+    } else {
+      node = getNext(node);
+    }
+  }
+}
+
+/************************
+    UTILITY FUNCTIONS
+************************/
+
+void insertInorder(List* list, void* toBeAdded) {
+  Node* toAdd = initializeNode(toBeAdded);
+  Node* node = getHead(list);
+
+  while (node) {
+    if (compareNode(node, toBeAdded, list->compare) < 0) {
+      node->prev->next = toAdd;
+      node->next->prev = toAdd;
+      toAdd->prev = getPrev(node);
+      toAdd->next = getNext(node);
+      list->length++;
       return;
     }
-    node = node->next;
+    node = getNext(node);
   }
+}
+
+void deleteNodeFromList(List* list, Node* node) {
+  if (node == list->head) {
+     deleteFromFront(list);
+  } else if (node == list->tail) {
+     deleteFromBack(list);
+  } else {
+     deleteNodeFromMiddle(list, node);
+  }
+}
+
+void deleteNodeFromMiddle(List* list, Node* node) {
+  node->prev->next = getNext(node);
+  node->next->prev = getPrev(node);
+  deleteNode(node, list->delete);
+  list->length--;
+}
+
+Node* getNode(List* list, void* toFind) {
+  Node* node = getHead(list);
+
+  while (node) {
+    if (compareNode(node, toFind, list->compare) == 0) {
+      return node;
+    }
+  }
+
+  return NULL;
+}
+
+Node* getHead(List* list) {
+  return list->head;
+}
+
+Node* getTail(List* list) {
+  return list->tail;
+}
+
+Node* getNext(Node* node) {
+  return node->next;
+}
+
+Node* getPrev(Node* node) {
+  return node->prev;
+}
+
+void printNode(Node* node, void (*print)(void* toBePrinted)) {
+  print(node->data);
 }
 
 void deleteNode(Node* toDelete, void (*delete)(void* toBeDeleted)) {
@@ -170,3 +215,6 @@ void deleteNode(Node* toDelete, void (*delete)(void* toBeDeleted)) {
   free(toDelete);
 }
 
+int compareNode(Node* first, void* second, int (*compare)(const void* first, const void* second)) {
+  return compare((const void*)first->data, second);
+}

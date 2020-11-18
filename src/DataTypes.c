@@ -34,7 +34,7 @@ void deleteString(void* toBeDeleted) {
 // Integer Functions
 
 void printInt(void* toBePrinted) {
-  printf("%ls\n", (int *)toBePrinted);
+  printf("%d\n", (int *)toBePrinted);
 }
 
 int compareInt(const void* first, const void* second) {
