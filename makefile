@@ -26,8 +26,11 @@ HashMap: HashMapAPI.h
 Graph: GraphAPI.h
 	$(CC) $(CFLAGS) $(SRC)GraphAPITest.c $(SRC)GraphAPI.c -Iinclude -o $(BIN)graph
 
-runLinkedList:
+runLinkedList: LinkedList
 	$(BIN)linkedList $(SRC)listData.txt
+
+runValgrindLinkedList: LinkedList
+	valgrind --leak-check=full --show-leak-kinds=all $(BIN)linkedList $(SRC)listData.txt
 
 runStack:
 	$(BIN)stack

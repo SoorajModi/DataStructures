@@ -36,15 +36,14 @@ void insertFront(List* list, void* toBeAdded) {
     Node* head = list->head;
 
     if (head == NULL) {
-        list->head = toAdd;
         list->tail = toAdd;
     } else {
-	      toAdd->next = head;
-	      toAdd->prev = NULL;
-	      head->prev = toAdd;
-        list->head = toAdd;
-        list->length++;
+	toAdd->next = head;
+	toAdd->prev = NULL;
+	head->prev = toAdd;
     }
+    list->head = toAdd;
+    list->length++;
 }
 
 void insertBack(List* list, void* toBeAdded) {
@@ -53,14 +52,13 @@ void insertBack(List* list, void* toBeAdded) {
 
     if (tail == NULL) {
         list->head = toAdd;
-        list->tail = toAdd;
     } else {
-	      toAdd->prev = tail;
-	      toAdd->next = NULL;
+	toAdd->prev = tail;
+	toAdd->next = NULL;
         tail->next = toAdd;
-	      list->tail = toAdd;
-        list->length++;
     }
+    list->tail = toAdd;
+    list->length++;
 }
 
 void insertSorted(List* list, void* toBeAdded){
@@ -107,7 +105,7 @@ void* getNode(List* list, void* toFind) {
 
 void printForward(List* list) {
   Node* node = list->head;
-
+  
   while (node) {
     printNode(node, list->print);
     node = node->next;
@@ -153,10 +151,19 @@ void deleteNodeFromList(List* list, void* toBeDeleted) {
   Node* node = list->head;
   while (node) {
     if (list->compare(node->data, toBeDeleted) == 0) {
-      node->prev->next = node->next;
-      node->next->prev = node->prev;
+      if (node == list->head) {
+	list->head = node->next;
+	printf("Test1\n");
+      } else if (node == list->tail) {
+	list->tail = node->prev;
+      } else {
+        node->prev->next = node->next;
+        node->next->prev = node->prev;
+      }
+      printf("Test2\n");
       deleteNode(node, list->delete);
       list->length--;
+      return;
     }
     node = node->next;
   }
@@ -164,5 +171,7 @@ void deleteNodeFromList(List* list, void* toBeDeleted) {
 
 void deleteNode(Node* toDelete, void (*delete)(void* toBeDeleted)) {
   delete(toDelete->data);
+  if(toDelete->data)
+	  printf("Did not delete\n");
   free(toDelete);
 }

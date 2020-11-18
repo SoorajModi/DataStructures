@@ -25,13 +25,15 @@ int main(int argc, char *argv[]) {
     while(ftell(fp) != eof) {
         char tempStr[100];
         fgets(tempStr, 100, fp);
-        char* str = malloc(sizeof(char)*strlen(tempStr));
-        insertBack(list, (void *)str);
+        char* str = malloc(sizeof(char)*(strlen(tempStr) + 1));
+        strncpy(str, tempStr, strlen(tempStr));
+	str[strlen(str) - 1] = '\0';
+	insertBack(list, (void *)str);
     }
 
     printForward(list);
-    printBackwards(list);
 
+    deleteList(list);
     return 0;
 }
 
