@@ -1,60 +1,45 @@
+/**
+ * Sooraj Modi
+ * Created September, 2020
+ */
 #include "StackAPI.h"
 
+/************************
+      CORE FUNCTIONS
+************************/
+
 Stack* initializeStack(void (*printFunction)(void *toBePrinted), void (*deleteFucntion)(void *toBeDeleted), int (*compareFunction)(const void *first, const void *second)) {
-  Stack* stack = malloc(sizeof(Stack));
-
-  stack->top = NULL;
-  stack->size = 0;
-  stack->print = printFunction;
-  stack->delete = deleteFunction;
-  stack->compare = compareFunction;
-
-  return stack;
+  return (Stack *)initializeList(printFunction, deleteFunction, compareFunction);
 }
 
-Node* initializeNode(void* data) {
-  Node* node = malloc(sizeof(Node));
-
-  node->data = data;
-  node->next = NULL;
-
-  return node;
-}
-
-Node* top(Stack* stack) {
-  return stack->top;
+void* top(Stack* stack) {
+  return getDataFromFront((List*)Stack);
 }
 
 void pop(Stack* stack) {
-  Node* toPop = stack->top;
-
-  stack->top = toPop->next;
-  stack->delete(toPop->data);
-  free(toPop);
+  deleteFromFront((List*)stack)
 }
 
 void push(Stack* stack, void* toBeAdded) {
-  Node* toPush = initializeNode(toBeAdded);
+  insertFront((List*)stack, toBeAdded);
+}
 
-  toPush->next = stack->top;
-  stack->top = toPush;
-  stack->size++;
+void printStack(Stack* stack) {
+  printForward((List*)stack);
 }
 
 int getSize(Stack* stack) {
-  return stack->size;
+  return getLength((List *)stack);
 }
 
-int isEmpty(Stack* stack) {
-  if (getSize(stack) == 0) {
-    return 1;
-  }
-  return 0;
+int isStackEmpty(Stack* stack) {
+  return isEmpty((List *)stack);
+}
+
+void clearStack(Stack* stack) {
+  clearList((List *)stack);
 }
 
 void deleteStack(Stack* stack) {
-  while(!isEmpty(stack)) {
-    pop(stack);
-  }
-  free(stack);
+  deleteList((List *)stack);
 }

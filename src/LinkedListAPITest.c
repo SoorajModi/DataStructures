@@ -27,14 +27,14 @@ int main(int argc, char *argv[]) {
         fgets(tempStr, 100, fp);
         char* str = malloc(sizeof(char)*strlen(tempStr)+1);
         strncpy(str, tempStr, strlen(tempStr) + 1);
-	str[strlen(str) - 1] = '\0';
-	insertBack(list, (void *)str);
+	      str[strlen(str) - 1] = '\0';
+	      insertBack(list, (void *)str);
     }
 
     printForward(list);
 
     deleteList(list);
-    
+
     fclose(fp);
     return 0;
 }

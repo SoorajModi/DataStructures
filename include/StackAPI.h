@@ -1,42 +1,36 @@
 #ifndef _STACK_API_
 #define _STACK_API_
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "SinglyLinkedListAPI.h"
+
+/************************
+       CORE OBJECTS
+************************/
 
 /**
- * Node for the Stack
+ * Stack pointer, wraps around a singly linked list struct.
  **/
-typedef struct node {
-    void* data;
-    struct node* next;
-} Node;
+typedef List Stack;
 
-/**
- * Struct for a Queue. Contains a pointer to the top of the Queue and to helper functions.
- **/
-typedef struct stack {
-    Node* top;
-    int size;
-    void (*delete)(void* toBeDeleted);
-    int (*compare)(const void* first, const void* second);
-    void (*print)(void* toBePrinted);
-} Stack;
+/************************
+      CORE FUNCTIONS
+************************/
 
 Stack* initializeStack(void (*printFunction)(void *toBePrinted), void (*deleteFucntion)(void *toBeDeleted), int (*compareFunction)(const void *first, const void *second));
 
-Node* initializeNode(void* data);
-
-Node* top(Stack* stack);
-
-void push(Stack* stack, void* toBeAdded);
+void* top(Stack* stack);
 
 void pop(Stack* stack);
 
+void push(Stack* stack, void* toBeAdded);
+
+void printStack(Stack* stack);
+
 int getSize(Stack* stack);
 
-int isEmpty(Stack* stack);
+int isStackEmpty(Stack* stack);
+
+void clearStack(Stack* stack);
 
 void deleteStack(Stack* stack);
 
