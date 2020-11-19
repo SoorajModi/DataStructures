@@ -46,7 +46,7 @@ typedef struct list {
  * @param compareFunction function pointer to compare the data associated with two nodes of the list in order to test for equality.
  * @return pointer to the List Struct.
  **/
-List* initializeList(void (*printFunction)(void* toBePrinted),void (*deleteFunction)(void* toBeDeleted),int (*compareFunction)(const void* first, const void* second));
+List* initializeList(void (*printFunction)(void* toBePrinted),void (*deleteFunction)(void* toBeDeleted), int (*compareFunction)(const void* first, const void* second));
 
 /**Function for initializing a node for a linked list. This node contains generic data and may be connected to
  * other nodes in a list.

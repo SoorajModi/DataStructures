@@ -33,7 +33,7 @@ void insertData(BinaryTree* tree, void* toInsert) {
   insertNode(tree->root, toInsert, tree->compare);
 }
 
-void insertNode(Node* node, void* toInsert, int (*compare)(const void *first, const void *second)) {
+void insertNode(Node* node, void* toInsert, int (*compare)(const void* first, const void* second)) {
   if(compare(node->data, toInsert) >= 0) {
     if (node->right) {
       insertNode(node->right, toInsert, compare);
@@ -56,7 +56,7 @@ void removeData(BinaryTree* tree, void* toBeRemoved) {
 void removeNode(BinaryTree* tree, Node* node, void* toBeRemoved) {
   int result = tree->compare(node->data, toBeRemoved);
   if(result == 0) {
-    freeRoot(node, tree->delete);
+    deleteSubtree(node, tree->delete);
   } else if (result > 0) {
     removeNode(tree, node->right, toBeRemoved);
   } else {
@@ -80,12 +80,12 @@ void printPostorderNode(Node* node, void (*print)(void *toBePrinted)) {
   if (node == NULL) return;
   printPostorderNode(node->left);
   printPostorderNode(node->right);
-  print(node->data);
+  printNode(node, print);
 }
 
 void printPreorderNode(Node* node, void (*print)(void *toBePrinted)) {
   if (node == NULL) return;
-  print(node->data);
+  printNode(node, print);
   printPreorderNode(node->left);
   printPreorderNode(node->right);
 }
@@ -93,38 +93,56 @@ void printPreorderNode(Node* node, void (*print)(void *toBePrinted)) {
 void printInorderNode(Node* node, void (*print)(void *toBePrinted)) {
   if (node == NULL) return;
   printInorderNode(node->left);
-  print(node->data);
+  printNode(node, print);
   printInorderNode(node->right);
 }
 
-int sizeTree(BinaryTree* tree) {
-  return sizeNode(tree->root);
+int isEmpty(BinaryTree* tree) {
+  if (getTreeSize(tree) > 0) {
+    return 1;
+  }
+  return 0;
 }
 
-int sizeNode(Node* node) {
+int getTreeSize(BinaryTree* tree) {
+  return getNumSubTreeNodes(tree->root);
+}
+
+int getNumSubTreeNodes(Node* node) {
   if(node == NULL) return 0;
 
-  int num = 1;
-  num += sizeNode(node->left);
-  num += sizeNode(node->right);
+  int num += getNumSubTreeNodes(node->left);
+  num += getNumSubTreeNodes(node->right);
 
-  return num;
+  return num + 1;
 }
 
-void freeNode(Node* node, void (*delete)(void *toBeDeleted)) {
+void deleteSubtree(Node* node, void (*delete)(void *toBeDeleted)) {
+  if(node == NULL) return;
+
+  deleteSubtree(node->left, delete);
+  deleteSubtree(node->right, delete);
+  deleteNode(root, delete);
+}
+
+void deleteTree(BinaryTree* tree) {
+  deleteSubtree(tree->root, tree->delete);
+  free(tree);
+}
+
+/************************
+    UTILITY FUNCTIONS
+************************/
+
+void printNode(Node* node, void (*print)(void *toBePrinted)) {
+  print(node->data);
+}
+
+void deleteNode(Node* node, void (*delete)(void *toBeDeleted)) {
   delete(node->data);
   free(node);
 }
 
-void freeRoot(Node* root, void (*delete)(void *toBeDeleted)) {
-  if(root == NULL) return;
-
-  freeTree(root->left, delete);
-  freeTree(root->right, delete);
-  freeNode(root, delete);
-}
-
-void freeTree(BinaryTree* tree) {
-  freeRoot(tree->root, tree->delete);
-  free(tree);
+int compareNode(Node* node, void* toCompare, int (*compare)(const void *first, const void *second)) {
+  return compare(node->data, toCompare);
 }
