@@ -1,9 +1,10 @@
 # Data Structures
 
-The following are a list of Data Structures written in C. Most of the APIs are not dependent on each other, but follow a similar structure.
+The following are a list of Data Structures written in C. Some of the APIs are dependent on each other.
+
+You can view the source code under src, and the header files under include.
 
 ## Linked List API
-Includes the following functions:
 - initializeList
 - insertFront
 - insertBack
@@ -15,28 +16,60 @@ Includes the following functions:
 - getLength
 - isEmpty
 - clearList
-- deleteList
 - deleteDataFromList
+- deleteList
 
 ## Singly Linked List API
+- initializeList
+- insertFront
+- insertBack
+- insertSorted
+- getDataFromFront
+- getDataFromBack
+- printForward
+- printBackwards
+- getLength
+- isEmpty
+- clearList
+- deleteFromFront
+- deleteFromBack
+- deleteList
 
-## Queue API
+## Queue API (Requires Linked List API)
 - initializeQueue
-- initializeNode
 - front
 - enqueue
 - dequeue
 - getLength
 - isEmpty
 - deleteQueue
-- deleteNode
 
-## Stack API
-
-## Heap API
+## Stack API (Requires Singly Linked List API)
+- initializeStack
+- top
+- pop
+- push
+- printStack
+- isStackEmpty
+- clearStack
+- deleteStack
 
 ## Binary Tree API
-
-## Hash Map API
+- initializeTree
+- insertData
+- removeData
+- printPostorder
+- printPreorder
+- printInorder
+- isEmpty
+- getTreeSize
+- deleteSubtree
+- deleteTree
 
 ## Graph API
+- createGraph
+- addVertex
+- addAdjVertex
+- addEdge
+- printGraph
+- checkForVertex
