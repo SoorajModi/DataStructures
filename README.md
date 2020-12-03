@@ -17,6 +17,8 @@ You can view the source code under src, and the header files under include.
 - isEmpty
 - clearList
 - deleteDataFromList
+- deleteFromFront
+- deleteFromBack
 - deleteList
 
 ## Singly Linked List API
