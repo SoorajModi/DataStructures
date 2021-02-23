@@ -8,7 +8,7 @@
         FUNCTIONS
 ************************/
 
-BinaryTree* initializeTree(void (*printFunction)(void *toBePrinted), void (*deleteFucntion)(void *toBeDeleted), int (*compareFunction)(const void *first, const void *second)) {
+BinaryTree* initializeTree(void (*printFunction)(void *toBePrinted), void (*deleteFunction)(void *toBeDeleted), int (*compareFunction)(const void *first, const void *second)) {
   BinaryTree* tree = malloc(sizeof(BinaryTree));
 
   tree->root = NULL;
@@ -38,13 +38,13 @@ void insertNode(Node* node, void* toInsert, int (*compare)(const void* first, co
     if (node->right) {
       insertNode(node->right, toInsert, compare);
     } else {
-      root->right = initializeNode(toInsert);
+      node->right = initializeNode(toInsert);
     }
   } else {
     if (node->left) {
       insertNode(node->left, toInsert, compare);
     } else {
-      root->left = initializeNode(toInsert);
+      node->left = initializeNode(toInsert);
     }
   }
 }
@@ -78,23 +78,23 @@ void printInorder(BinaryTree* tree) {
 
 void printPostorderNode(Node* node, void (*print)(void *toBePrinted)) {
   if (node == NULL) return;
-  printPostorderNode(node->left);
-  printPostorderNode(node->right);
+  printPostorderNode(node->left, print);
+  printPostorderNode(node->right, print);
   printNode(node, print);
 }
 
 void printPreorderNode(Node* node, void (*print)(void *toBePrinted)) {
   if (node == NULL) return;
   printNode(node, print);
-  printPreorderNode(node->left);
-  printPreorderNode(node->right);
+  printPreorderNode(node->left, print);
+  printPreorderNode(node->right, print);
 }
 
 void printInorderNode(Node* node, void (*print)(void *toBePrinted)) {
   if (node == NULL) return;
-  printInorderNode(node->left);
+  printInorderNode(node->left, print);
   printNode(node, print);
-  printInorderNode(node->right);
+  printInorderNode(node->right, print);
 }
 
 int isEmpty(BinaryTree* tree) {
@@ -111,7 +111,7 @@ int getTreeSize(BinaryTree* tree) {
 int getNumSubTreeNodes(Node* node) {
   if(node == NULL) return 0;
 
-  int num += getNumSubTreeNodes(node->left);
+  int num = getNumSubTreeNodes(node->left);
   num += getNumSubTreeNodes(node->right);
 
   return num + 1;
@@ -122,7 +122,7 @@ void deleteSubtree(Node* node, void (*delete)(void *toBeDeleted)) {
 
   deleteSubtree(node->left, delete);
   deleteSubtree(node->right, delete);
-  deleteNode(root, delete);
+  deleteNode(node, delete);
 }
 
 void deleteTree(BinaryTree* tree) {

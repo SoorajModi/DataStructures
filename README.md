@@ -4,6 +4,14 @@ The following are a list of Data Structures written in C. Some of the APIs are d
 
 You can view the source code under src, and the header files under include.
 
+## How to Run
+
+To compile CMakeList: `cmake .`
+
+To compile makefile: `make`
+
+
+
 ## Linked List API
 - initializeList
 - insertFront

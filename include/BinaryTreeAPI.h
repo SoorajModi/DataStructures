@@ -61,6 +61,7 @@ void insertNode(Node* node, void* toInsert, int (*compare)(const void *first, co
 
 void removeData(BinaryTree* tree, void* toBeRemoved);
 void removeNode(BinaryTree* tree, Node* node, void* toBeRemoved);
+void deleteSubtree(Node* node, void (*delete)(void *toBeDeleted));
 
 void printPostorder(BinaryTree* tree);
 void printPreorder(BinaryTree* tree);
@@ -71,7 +72,7 @@ void printInorderNode(Node* node, void (*print)(void *toBePrinted));
 
 int isEmpty(BinaryTree* tree);
 int getTreeSize(BinaryTree* tree);
-itn getNumSubTreeNodes(Node* node);
+int getNumSubTreeNodes(Node* node);
 
 void freeRoot(Node* root, void (*delete)(void *toBeDeleted));
 void freeTree(BinaryTree* tree);
