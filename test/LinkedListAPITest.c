@@ -1,49 +1,31 @@
+#include "unity.h"
 #include "LinkedListAPI.h"
 #include "DataTypes.h"
 
-/*FUNCTION DECLARATIONS*/
-int getEOF(FILE* fp);
-
-/******************************
-            MAIN
-*******************************/
-int main(int argc, char *argv[]) {
-    //Read in the file
-    FILE* fp = NULL;
-    fp = fopen(argv[1], "r");
-    if(fp == NULL){
-        printf("Error: file name invalid or not entered\nProgram terminating\n");
-        return 0;
-    }
-
-    //Find size of the file
-    int eof = getEOF(fp);
-
-    List* list = initializeList(&printString, &deleteString, &compareString);
-
-    //Read in the file
-    while(ftell(fp) != eof) {
-        char tempStr[100];
-        fgets(tempStr, 100, fp);
-        char* str = malloc(sizeof(char)*strlen(tempStr)+1);
-        strncpy(str, tempStr, strlen(tempStr) + 1);
-	      str[strlen(str) - 1] = '\0';
-	      insertBack(list, (void *)str);
-    }
-
-    printForward(list);
-
-    deleteList(list);
-
-    fclose(fp);
-    return 0;
+void setUp(void) {
 }
 
-// Helper functions
+void tearDown(void) {
+}
 
-int getEOF(FILE* fp) {
-  fseek(fp, 0, SEEK_END);
-  int fileEnd = ftell(fp);
-  fseek(fp, 0, SEEK_SET);
-  return fileEnd;
+void should_initialize_hash_map(void) {
+    List* list = initializeList(&printString, &deleteString, &compareString);
+
+    TEST_ASSERT_NOT_NULL(list);
+    TEST_ASSERT_NOT_NULL(list->print);
+    TEST_ASSERT_NOT_NULL(list->delete);
+    TEST_ASSERT_NOT_NULL(list->compare);
+    TEST_ASSERT_NULL(list->head);
+    TEST_ASSERT_NULL(list->tail);
+    TEST_ASSERT_EQUAL(0, list->length);
+
+    deleteList(list);
+}
+
+int main(void) {
+    UNITY_BEGIN();
+
+    RUN_TEST(should_initialize_hash_map);
+
+    return UNITY_END();
 }

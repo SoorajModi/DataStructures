@@ -10,21 +10,27 @@ project(DataStructures
         C
         )
 
-# Include header files
-include_directories(include)
-
 # Set directory variables
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(PROJECT_SOURCE_DIR ${CMAKE_BINARY_DIR}/src)
 set(PROJECT_TEST_DIR ${CMAKE_BINARY_DIR}/test)
 
+# Set dependency directory variables
+set(UNITY_DIR ${CMAKE_BINARY_DIR}/lib/Unity-2.5.2/src)
+
+# Include header files
+include_directories(${CMAKE_BINARY_DIR}/include)
+
+# Include dependencies
+include_directories(${UNITY_DIR})
+
 # Set library files
-set(LINKEDLIST ${PROJECT_SOURCE_DIR}/LinkedListAPI.c ${PROJECT_TEST_DIR}/LinkedListAPITest.c ${PROJECT_TEST_DIR}/DataTypes.c)
-set(QUEUE ${PROJECT_SOURCE_DIR}/QueueAPI.c ${PROJECT_SOURCE_DIR}/LinkedListAPI.c ${PROJECT_SOURCE_DIR}/QueueAPITest.c ${PROJECT_TEST_DIR}/DataTypes.c)
-set(STACK ${PROJECT_SOURCE_DIR}/StackAPI.c ${PROJECT_SOURCE_DIR}/LinkedListAPI.c ${PROJECT_TEST_DIR}/StackAPITest.c ${PROJECT_TEST_DIR}/DataTypes.c)
-set(BINARY_TREE ${PROJECT_SOURCE_DIR}/BinaryTreeAPI.c ${PROJECT_TEST_DIR}/BinaryTreeAPITest.c ${PROJECT_TEST_DIR}/DataTypes.c)
-set(GRAPH ${PROJECT_SOURCE_DIR}/GraphAPI.c ${PROJECT_TEST_DIR}/GraphAPITest.c ${PROJECT_TEST_DIR}/DataTypes.c)
-set(HASH_MAP ${PROJECT_SOURCE_DIR}/HashMapAPI.c ${PROJECT_SOURCE_DIR}/LinkedListAPI.c ${PROJECT_TEST_DIR}/HashMapAPITest.c ${PROJECT_TEST_DIR}/DataTypes.c)
+set(LINKEDLIST ${PROJECT_SOURCE_DIR}/LinkedListAPI.c ${PROJECT_TEST_DIR}/LinkedListAPITest.c ${UNITY_DIR}/unity.c ${PROJECT_TEST_DIR}/DataTypes.c)
+set(QUEUE ${PROJECT_SOURCE_DIR}/QueueAPI.c ${PROJECT_SOURCE_DIR}/LinkedListAPI.c ${PROJECT_TEST_DIR}/QueueAPITest.c ${UNITY_DIR}/unity.c ${PROJECT_TEST_DIR}/DataTypes.c)
+set(STACK ${PROJECT_SOURCE_DIR}/StackAPI.c ${PROJECT_SOURCE_DIR}/LinkedListAPI.c ${PROJECT_TEST_DIR}/StackAPITest.c ${UNITY_DIR}/unity.c ${PROJECT_TEST_DIR}/DataTypes.c)
+set(BINARY_TREE ${PROJECT_SOURCE_DIR}/BinaryTreeAPI.c ${PROJECT_TEST_DIR}/BinaryTreeAPITest.c ${UNITY_DIR}/unity.c ${PROJECT_TEST_DIR}/DataTypes.c)
+set(GRAPH ${PROJECT_SOURCE_DIR}/GraphAPI.c ${PROJECT_TEST_DIR}/GraphAPITest.c ${UNITY_DIR}/unity.c ${PROJECT_TEST_DIR}/DataTypes.c)
+set(HASH_MAP ${PROJECT_SOURCE_DIR}/HashMapAPI.c ${PROJECT_SOURCE_DIR}/LinkedListAPI.c ${PROJECT_TEST_DIR}/HashMapAPITest.c ${UNITY_DIR}/unity.c ${PROJECT_TEST_DIR}/DataTypes.c)
 
 # Create executables
 add_executable(LinkedList ${LINKEDLIST})

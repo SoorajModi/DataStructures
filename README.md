@@ -10,9 +10,17 @@ To compile CMakeList: `cmake .`
 
 To compile makefile: `make`
 
+To run executable" `./bin/a.out`
 
+## Dependencies 
 
-## Linked List API
+All external dependencies are placed in the `lib` directory.
+
+`Unity v2.5.2`: a C testing library. You can find the documentation [here](https://github.com/ThrowTheSwitch/Unity/tree/master/docs)
+
+## API
+
+### Linked List API
 - initializeList
 - insertFront
 - insertBack
@@ -29,7 +37,7 @@ To compile makefile: `make`
 - deleteFromBack
 - deleteList
 
-## Singly Linked List API
+### Singly Linked List API
 - initializeList
 - insertFront
 - insertBack
@@ -45,7 +53,7 @@ To compile makefile: `make`
 - deleteFromBack
 - deleteList
 
-## Queue API (Requires Linked List API)
+### Queue API (Requires Linked List API)
 - initializeQueue
 - front
 - enqueue
@@ -54,7 +62,7 @@ To compile makefile: `make`
 - isEmpty
 - deleteQueue
 
-## Stack API (Requires Singly Linked List API)
+### Stack API (Requires Singly Linked List API)
 - initializeStack
 - top
 - pop
@@ -64,7 +72,7 @@ To compile makefile: `make`
 - clearStack
 - deleteStack
 
-## Binary Tree API
+### Binary Tree API
 - initializeTree
 - insertData
 - removeData
@@ -76,7 +84,7 @@ To compile makefile: `make`
 - deleteSubtree
 - deleteTree
 
-## Graph API
+### Graph API
 - createGraph
 - addVertex
 - addAdjVertex

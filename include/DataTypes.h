@@ -18,6 +18,7 @@ void deletePerson(void* toBeDeleted);
 void printString(void* toBePrinted);
 int compareString(const void* first, const void* second);
 void deleteString(void* toBeDeleted);
+int hashString(void* toHash);
 
 void printInt(void* toBePrinted);
 int compareInt(const void* first, const void* second);

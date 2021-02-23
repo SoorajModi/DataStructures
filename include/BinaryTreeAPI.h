@@ -76,6 +76,7 @@ int getNumSubTreeNodes(Node* node);
 
 void freeRoot(Node* root, void (*delete)(void *toBeDeleted));
 void freeTree(BinaryTree* tree);
+void deleteTree(BinaryTree* tree);
 
 /************************
     UTILITY FUNCTIONS
