@@ -8,7 +8,7 @@ void setUp(void) {
 void tearDown(void) {
 }
 
-void should_initialize_hash_map(void) {
+void should_initialize_stack(void) {
     Stack* stack = initializeStack(&printString, &deleteString, &compareString);
 
     TEST_ASSERT_NOT_NULL(stack);
@@ -25,7 +25,7 @@ void should_initialize_hash_map(void) {
 int main(void) {
     UNITY_BEGIN();
 
-    RUN_TEST(should_initialize_hash_map);
+    RUN_TEST(should_initialize_stack);
 
     return UNITY_END();
 }

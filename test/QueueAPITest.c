@@ -8,7 +8,7 @@ void setUp(void) {
 void tearDown(void) {
 }
 
-void should_initialize_hash_map(void) {
+void should_initialize_queue(void) {
     Queue* queue = initializeQueue(&printString, &deleteString, &compareString);
 
     TEST_ASSERT_NOT_NULL(queue);
@@ -25,7 +25,7 @@ void should_initialize_hash_map(void) {
 int main(void) {
     UNITY_BEGIN();
 
-    RUN_TEST(should_initialize_hash_map);
+    RUN_TEST(should_initialize_queue);
 
     return UNITY_END();
 }

@@ -7,7 +7,7 @@ void setUp(void) {
 void tearDown(void) {
 }
 
-void should_initialize_hash_map(void) {
+void should_initialize_graph(void) {
     Graph* graph = createGraph();
 
     TEST_ASSERT_NOT_NULL(graph);
@@ -21,7 +21,7 @@ void should_initialize_hash_map(void) {
 int main(void) {
     UNITY_BEGIN();
 
-    RUN_TEST(should_initialize_hash_map);
+    RUN_TEST(should_initialize_graph);
 
     return UNITY_END();
 }
