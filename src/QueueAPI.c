@@ -33,6 +33,10 @@ int isQueueEmpty(Queue *queue) {
     return isEmpty((List *) queue);
 }
 
+void emptyQueue(Queue *queue) {
+    return clearList((List *)queue);
+}
+
 void printQueue(Queue *queue) {
     printForward((List *) queue);
 }

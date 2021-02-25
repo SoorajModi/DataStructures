@@ -66,6 +66,8 @@ int getQueueLength(Queue *queue);
  **/
 int isQueueEmpty(Queue *queue);
 
+void emptyQueue(Queue *queue);
+
 /**Function to print queue from the front to the end. This will the Queue's printNode function pointer to print.
  * @pre Queue must exist, but does not have to have elements.
  * @param list pointer to linked list.
