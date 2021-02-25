@@ -18,9 +18,9 @@
  * Contains a pointer to data, and pointers to the left and right children nodes.
  **/
 typedef struct node {
-  void* data;
-  struct node* left;
-  struct node* right;
+    void *data;
+    struct node *left;
+    struct node *right;
 } Node;
 
 /**
@@ -28,10 +28,13 @@ typedef struct node {
  * Contains a pointer to the root, and pointers to helper functions.
  **/
 typedef struct binaryTree {
-    Node* root;
-    void (*delete)(void* toBeDeleted);
-    int (*compare)(const void* first, const void* second);
-    void (*print)(void* toBePrinted);
+    Node *root;
+
+    void (*delete)(void *toBeDeleted);
+
+    int (*compare)(const void *first, const void *second);
+
+    void (*print)(void *toBePrinted);
 } BinaryTree;
 
 /************************
@@ -44,7 +47,8 @@ typedef struct binaryTree {
  * @param compareFunction function pointer to compare the data associated with two nodes of the Binary Tree in order to test for equality.
  * @return pointer to the Binary Tree Struct.
  **/
-BinaryTree* initializeTree(void (*printFunction)(void *toBePrinted), void (*deleteFucntion)(void *toBeDeleted), int (*compareFunction)(const void *first, const void *second));
+BinaryTree *initializeTree(void (*printFunction)(void *toBePrinted), void (*deleteFucntion)(void *toBeDeleted),
+                           int (*compareFunction)(const void *first, const void *second));
 
 /**Function for initializing a node for a Binary Tree. This node contains generic data and may be connected to
  * child nodes in a Binary Tree.
@@ -54,36 +58,50 @@ BinaryTree* initializeTree(void (*printFunction)(void *toBePrinted), void (*dele
  * @param data - is a generic pointer to any data type.
  * @return On success returns a node that can be added to a Binary Tree. On failure, returns NULL.
  **/
-Node* initializeNode(void* data);
+Node *initializeNode(void *data);
 
-void insertData(BinaryTree* tree, void* toInsert);
-void insertNode(Node* node, void* toInsert, int (*compare)(const void *first, const void *second));
+void insertData(BinaryTree *tree, void *toInsert);
 
-void removeData(BinaryTree* tree, void* toBeRemoved);
-void removeNode(BinaryTree* tree, Node* node, void* toBeRemoved);
+void insertNode(Node *node, void *toInsert, int (*compare)(const void *first, const void *second));
 
-void printPostorder(BinaryTree* tree);
-void printPreorder(BinaryTree* tree);
-void printInorder(BinaryTree* tree);
-void printPostorderNode(Node* node, void (*print)(void *toBePrinted));
-void printPreorderNode(Node* node, void (*print)(void *toBePrinted));
-void printInorderNode(Node* node, void (*print)(void *toBePrinted));
+void removeData(BinaryTree *tree, void *toBeRemoved);
 
-int isEmpty(BinaryTree* tree);
-int getTreeSize(BinaryTree* tree);
-itn getNumSubTreeNodes(Node* node);
+void removeNode(BinaryTree *tree, Node *node, void *toBeRemoved);
 
-void freeRoot(Node* root, void (*delete)(void *toBeDeleted));
-void freeTree(BinaryTree* tree);
+void deleteSubtree(Node *node, void (*delete)(void *toBeDeleted));
+
+void printPostorder(BinaryTree *tree);
+
+void printPreorder(BinaryTree *tree);
+
+void printInorder(BinaryTree *tree);
+
+void printPostorderNode(Node *node, void (*print)(void *toBePrinted));
+
+void printPreorderNode(Node *node, void (*print)(void *toBePrinted));
+
+void printInorderNode(Node *node, void (*print)(void *toBePrinted));
+
+int isEmpty(BinaryTree *tree);
+
+int getTreeSize(BinaryTree *tree);
+
+int getNumSubTreeNodes(Node *node);
+
+void freeRoot(Node *root, void (*delete)(void *toBeDeleted));
+
+void freeTree(BinaryTree *tree);
+
+void deleteTree(BinaryTree *tree);
 
 /************************
     UTILITY FUNCTIONS
 ************************/
 
-void printNode(Node* node, void (*print)(void *toBePrinted));
+void printNode(Node *node, void (*print)(void *toBePrinted));
 
-void deleteNode(Node* node, void (*delete)(void *toBeDeleted));
+void deleteNode(Node *node, void (*delete)(void *toBeDeleted));
 
-int compareNode(Node* node, void* toCompare, int (*compare)(const void *first, const void *second));
+int compareNode(Node *node, void *toCompare, int (*compare)(const void *first, const void *second));
 
 #endif

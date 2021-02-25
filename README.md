@@ -4,7 +4,23 @@ The following are a list of Data Structures written in C. Some of the APIs are d
 
 You can view the source code under src, and the header files under include.
 
-## Linked List API
+## How to Run
+
+To compile CMakeList: `cmake .`
+
+To compile makefile: `make`
+
+To run executable: `./bin/a.out`
+
+## Dependencies 
+
+All external dependencies are placed in the `lib` directory.
+
+`Unity v2.5.2`: a C testing library. You can find the documentation [here](https://github.com/ThrowTheSwitch/Unity/tree/master/docs)
+
+## API
+
+### Linked List API
 - initializeList
 - insertFront
 - insertBack
@@ -21,7 +37,7 @@ You can view the source code under src, and the header files under include.
 - deleteFromBack
 - deleteList
 
-## Singly Linked List API
+### Singly Linked List API
 - initializeList
 - insertFront
 - insertBack
@@ -37,7 +53,7 @@ You can view the source code under src, and the header files under include.
 - deleteFromBack
 - deleteList
 
-## Queue API (Requires Linked List API)
+### Queue API (Requires Linked List API)
 - initializeQueue
 - front
 - enqueue
@@ -46,7 +62,7 @@ You can view the source code under src, and the header files under include.
 - isEmpty
 - deleteQueue
 
-## Stack API (Requires Singly Linked List API)
+### Stack API (Requires Singly Linked List API)
 - initializeStack
 - top
 - pop
@@ -56,7 +72,7 @@ You can view the source code under src, and the header files under include.
 - clearStack
 - deleteStack
 
-## Binary Tree API
+### Binary Tree API
 - initializeTree
 - insertData
 - removeData
@@ -68,7 +84,7 @@ You can view the source code under src, and the header files under include.
 - deleteSubtree
 - deleteTree
 
-## Graph API
+### Graph API
 - createGraph
 - addVertex
 - addAdjVertex
