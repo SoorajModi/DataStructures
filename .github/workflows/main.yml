@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Compile CMake
+        run: cmake .
+
+      - name: Compile Code
+        run: make
+        
+      - name: Run LinkedListAPI tests
+        run: ./bin/LinkedList
+        
+      - name: Run StackAPI tests
+        run: ./bin/Stack
+        
+      - name: Run QueueAPI tests
+        run: ./bin/Queue
+        
+      - name: Run BinaryTreeAPI tests
+        run: ./bin/BinaryTree
+        
+      - name: Run GraphAPI tests
+        run: ./bin/Graph
+                
+      - name: Run HashMapAPI tests
+        run: ./bin/HashMap
