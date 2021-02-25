@@ -30,6 +30,7 @@ int compareString(const void *first, const void *second) {
 
 void deleteString(void *toBeDeleted) {
     free(toBeDeleted);
+    toBeDeleted = NULL;
 }
 
 int hashString(void *toHash) {
@@ -51,7 +52,7 @@ void printInt(void *toBePrinted) {
 }
 
 int compareInt(const void *first, const void *second) {
-    return (((int *) first) - ((int *) second));
+    return (int *) first - (int *) second;
 }
 
 void deleteInt(void *toBeDeleted) {

@@ -1,11 +1,14 @@
 #include "unity.h"
+//#include "unity_memory.h"
 #include "LinkedListAPI.h"
 #include "DataTypes.h"
 
 void setUp(void) {
+//    UnityMalloc_StartTest();
 }
 
 void tearDown(void) {
+//    UnityMalloc_EndTest();
 }
 
 void should_initialize_linked_list(void) {
@@ -42,10 +45,10 @@ void should_insert_data_to_front_of_list(void) {
     strncpy(string, "string", 6);
     strncpy(string2, "string2", 7);
 
-    insertFront(list, (void *)string);
-    insertFront(list, (void *)string2);
+    insertFront(list, (void *) string);
+    insertFront(list, (void *) string2);
 
-    TEST_ASSERT_EQUAL(string2, (char*)list->head->data);
+    TEST_ASSERT_EQUAL(string2, (char *) list->head->data);
 
     deleteList(list);
 }
@@ -56,9 +59,9 @@ void should_get_data_from_front_of_list(void) {
     char *string = malloc(sizeof(char) * 6);
     strncpy(string, "string", 6);
 
-    insertFront(list, (void *)string);
+    insertFront(list, (void *) string);
 
-    TEST_ASSERT_EQUAL(string, (char*)getDataFromFront(list));
+    TEST_ASSERT_EQUAL(string, (char *) getDataFromFront(list));
 
     deleteList(list);
 }
@@ -71,10 +74,10 @@ void should_insert_data_to_back_of_list(void) {
     strncpy(string, "string", 6);
     strncpy(string2, "string2", 7);
 
-    insertBack(list, (void *)string);
-    insertBack(list, (void *)string2);
+    insertBack(list, (void *) string);
+    insertBack(list, (void *) string2);
 
-    TEST_ASSERT_EQUAL(string2, (char*)list->tail->data);
+    TEST_ASSERT_EQUAL(string2, (char *) list->tail->data);
 
     deleteList(list);
 }
@@ -87,10 +90,10 @@ void should_get_data_from_back_of_list(void) {
     strncpy(string, "string", 6);
     strncpy(string2, "string2", 7);
 
-    insertBack(list, (void *)string);
-    insertBack(list, (void *)string2);
+    insertBack(list, (void *) string);
+    insertBack(list, (void *) string2);
 
-    TEST_ASSERT_EQUAL(string2, (char*)getDataFromBack(list));
+    TEST_ASSERT_EQUAL(string2, (char *) getDataFromBack(list));
 
     deleteList(list);
 }
@@ -108,7 +111,7 @@ void should_return_0_if_list_is_empty(void) {
 
     char *string = malloc(sizeof(char) * 6);
     strncpy(string, "string", 6);
-    insertFront(list, (void *)string);
+    insertFront(list, (void *) string);
 
     TEST_ASSERT_EQUAL(0, isEmpty(list));
 
@@ -121,7 +124,7 @@ void should_return_length_of_list(void) {
 
     char *string = malloc(sizeof(char) * 6);
     strncpy(string, "string", 6);
-    insertFront(list, (void *)string);
+    insertFront(list, (void *) string);
     TEST_ASSERT_EQUAL(1, getLength(list));
 
     deleteList(list);
@@ -135,14 +138,14 @@ void should_delete_node_from_front(void) {
     strncpy(string, "string", 6);
     strncpy(string2, "string2", 7);
 
-    insertBack(list, (void *)string);
-    insertBack(list, (void *)string2);
+    insertBack(list, (void *) string);
+    insertBack(list, (void *) string2);
 
-    TEST_ASSERT_EQUAL(string, (char*)list->head->data);
+    TEST_ASSERT_EQUAL(string, (char *) list->head->data);
 
     deleteFromFront(list);
 
-    TEST_ASSERT_EQUAL(string2, (char*)list->head->data);
+    TEST_ASSERT_EQUAL(string2, (char *) list->head->data);
 
     deleteList(list);
 }
@@ -155,14 +158,14 @@ void should_delete_node_from_back(void) {
     strncpy(string, "string", 6);
     strncpy(string2, "string2", 7);
 
-    insertBack(list, (void *)string);
-    insertBack(list, (void *)string2);
+    insertBack(list, (void *) string);
+    insertBack(list, (void *) string2);
 
-    TEST_ASSERT_EQUAL(string2, (char*)list->tail->data);
+    TEST_ASSERT_EQUAL(string2, (char *) list->tail->data);
 
     deleteFromBack(list);
 
-    TEST_ASSERT_EQUAL(string, (char*)list->tail->data);
+    TEST_ASSERT_EQUAL(string, (char *) list->tail->data);
 
     deleteList(list);
 }
@@ -172,11 +175,13 @@ void should_clear_all_content_of_list(void) {
 
     char *string = malloc(sizeof(char) * 6);
     strncpy(string, "string", 6);
-    insertFront(list, (void *)string);
+    insertFront(list, (void *) string);
 
     TEST_ASSERT_EQUAL(1, getLength(list));
     clearList(list);
     TEST_ASSERT_EQUAL(0, getLength(list));
+
+    deleteList(list);
 }
 
 int main(void) {

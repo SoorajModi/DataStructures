@@ -10,7 +10,9 @@ To compile CMakeList: `cmake .`
 
 To compile makefile: `make`
 
-To run executable" `./bin/a.out`
+To run executable: `./bin/a.out`
+
+To run executable with valgrind: `valgrind --leak-check=full  --show-leak-kinds=all  --track-origins=yes --verbose ./bin/a.out` 
 
 ## Dependencies 
 
