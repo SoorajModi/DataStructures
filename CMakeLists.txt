@@ -30,7 +30,6 @@ include_directories(${UNITY_MEMORY_DIR})
 set(LINKEDLIST ${PROJECT_SOURCE_DIR}/LinkedListAPI.c
         ${PROJECT_TEST_DIR}/LinkedListAPITest.c
         ${UNITY_DIR}/unity.c
-        ${UNITY_MEMORY_DIR}/unity_memory.c
         ${PROJECT_TEST_DIR}/DataTypes.c)
 set(QUEUE ${PROJECT_SOURCE_DIR}/QueueAPI.c
         ${PROJECT_SOURCE_DIR}/LinkedListAPI.c
@@ -45,7 +44,6 @@ set(STACK ${PROJECT_SOURCE_DIR}/StackAPI.c
 set(BINARY_TREE ${PROJECT_SOURCE_DIR}/BinaryTreeAPI.c
         ${PROJECT_TEST_DIR}/BinaryTreeAPITest.c
         ${UNITY_DIR}/unity.c
-        ${UNITY_MEMORY_DIR}/unity_memory.c
         ${PROJECT_TEST_DIR}/DataTypes.c)
 set(GRAPH ${PROJECT_SOURCE_DIR}/GraphAPI.c
         ${PROJECT_TEST_DIR}/GraphAPITest.c

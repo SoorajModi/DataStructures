@@ -12,8 +12,6 @@ To compile makefile: `make`
 
 To run executable: `./bin/a.out`
 
-To run executable with valgrind: `valgrind --leak-check=full  --show-leak-kinds=all  --track-origins=yes --verbose ./bin/a.out` 
-
 ## Dependencies 
 
 All external dependencies are placed in the `lib` directory.

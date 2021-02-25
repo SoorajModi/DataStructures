@@ -1,14 +1,11 @@
 #include "unity.h"
-//#include "unity_memory.h"
 #include "BinaryTreeAPI.h"
 #include "DataTypes.h"
 
 void setUp(void) {
-//    UnityMalloc_StartTest();
 }
 
 void tearDown(void) {
-//    UnityMalloc_EndTest();
 }
 
 void should_initialize_binary_tree(void) {

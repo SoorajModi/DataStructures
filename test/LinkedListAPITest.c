@@ -1,14 +1,11 @@
 #include "unity.h"
-//#include "unity_memory.h"
 #include "LinkedListAPI.h"
 #include "DataTypes.h"
 
 void setUp(void) {
-//    UnityMalloc_StartTest();
 }
 
 void tearDown(void) {
-//    UnityMalloc_EndTest();
 }
 
 void should_initialize_linked_list(void) {
